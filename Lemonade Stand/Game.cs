@@ -156,9 +156,21 @@ namespace Lemonade_Stand
             int sugarCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("How many ice cubes would you like in your lemonade?");
             int iceCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
-            
-          
+            int lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
+            int iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
+            int sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
+            player.pitcher.pitcherTasteScore = 50 - AddThreeNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance);
+            Console.WriteLine("Your creation yielded a {0} taste score!", player.pitcher.pitcherTasteScore);
 
+        }
+        public int AddThreeNumbers(int firstNumber, int secondNumber, int thirdNumber)
+        {
+            int number1, number2, number3;
+            number1 = firstNumber;
+            number2 = secondNumber;
+            number3 = thirdNumber;
+            int total = number1 + number2 + number3;
+            return total;
 
         }
         //public void LemonadeCreationMenu(int index)

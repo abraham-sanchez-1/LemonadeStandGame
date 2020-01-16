@@ -9,12 +9,15 @@ namespace Lemonade_Stand
     class Pitcher
     {
         //Declaring Variables
-        public int cupsLeftInPitcher; 
+        public int cupsLeftInPitcher;
+        public int pitcherTasteScore;
+
 
         //Pitcher Constructor 
         public Pitcher()
         {
             cupsLeftInPitcher = 5;
+            pitcherTasteScore = 0;
         }
     }
 }
