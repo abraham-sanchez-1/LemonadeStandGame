@@ -16,7 +16,7 @@ namespace Lemonade_Stand
         //Wallet Constructor
         public Wallet()
         {
-
+            Money = 20.00;
         }
     }
 }

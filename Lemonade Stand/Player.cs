@@ -10,17 +10,23 @@ namespace Lemonade_Stand
     {
         //Declaring Variables
         public string Name;
+        public Inventory inventory;
+        public Wallet wallet;
+        public Recipe recipe;
+        public Pitcher pitcher;
+
 
         //Player Constructor
-        public Player(string Name)
+        public Player()
         {
-            this.Name = Name;
-
-         //Instantiating Classes
-         Inventory inventory = new Inventory();
-         Wallet wallet = new Wallet();
-         Recipe recipe = new Recipe();
-         Pitcher pitcher = new Pitcher();
+             inventory = new Inventory();
+             wallet = new Wallet();
+             recipe = new Recipe();
+             pitcher = new Pitcher();
+        }
+        //member method
     }
+         //Instantiating Classes
+        
 }
-}
+
