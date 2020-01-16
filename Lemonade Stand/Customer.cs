@@ -10,13 +10,18 @@ namespace Lemonade_Stand
     {
         //Declaring Variables
         public string name;
-        public int reputation;
+        public int reputation = 100;
         public int tasteScore;
+
+        Random tasteScoreRandom = new Random(); 
 
         //Customer Constructor
         public Customer(string name)
         {
-            this.name = name; 
+            this.name = name;
+            tasteScore = tasteScoreRandom.Next(20, 90);
         }
+
+
     }
 }

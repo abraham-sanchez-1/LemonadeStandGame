@@ -81,6 +81,7 @@ namespace Lemonade_Stand
                     }
                     player.wallet.Money -= 2.50;
                     Console.WriteLine("Money Left: {0}", player.wallet.Money);
+                    Console.Clear();
                     StoreVisit();
                     break;
                 case 2:
@@ -89,7 +90,8 @@ namespace Lemonade_Stand
                         player.inventory.sugarCubes.Add(new SugarCube());
                     }
                     player.wallet.Money -= 1.50;
-                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
+                    Console.WriteLine("Money Left: {0}", player.wallet.Money); 
+                    Console.Clear();
                     StoreVisit();
                     break;
                 case 3:
@@ -99,6 +101,7 @@ namespace Lemonade_Stand
                     }
                     player.wallet.Money -= 2.50;
                     Console.WriteLine("Money Left: {0}", player.wallet.Money);
+                    Console.Clear();
                     StoreVisit();
                     break;
                 case 4:
@@ -107,7 +110,8 @@ namespace Lemonade_Stand
                         player.inventory.cups.Add(new Cup());
                     }
                     player.wallet.Money -= 5.00;
-                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
+                    Console.WriteLine("Money Left: {0}", player.wallet.Money); 
+                    Console.Clear();
                     StoreVisit();
                     break;
                 case 5:
@@ -128,6 +132,42 @@ namespace Lemonade_Stand
             Console.WriteLine("Day: {0}", currentDay);
             Console.WriteLine("The Weather is: {0}", day.weather.condition);
             Console.WriteLine("The Temperature is: {0}", day.weather.temperature);
+            if (day.weather.condition == "sunny" && day.weather.temperature >= 90)
+            {
+                for (int i = 0; i < 80; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            if (day.weather.condition == "hail" && day.weather.temperature <= 32)
+            {
+                for (int i = 0; i < 15; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            if (day.weather.condition == "overcast" && day.weather.temperature <= 70)
+            {
+                for (int i = 0; i < 55; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            if (day.weather.condition == "snow" && day.weather.temperature <= 32)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            if (day.weather.condition == "rain" && day.weather.temperature <= 65)
+            {
+                for (int i = 0; i < 25; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+
         }
         public void SalesSummary()
         {
