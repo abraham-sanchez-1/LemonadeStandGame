@@ -10,9 +10,10 @@ namespace Lemonade_Stand
     {
         //member variable
         private Player player;
-        private Store store; 
+        private Store store;
+        private Day day;
 
-        private List<Day> days;
+        public List<Day> days;
         
         private int currentDay = 1;
 
@@ -22,7 +23,7 @@ namespace Lemonade_Stand
             player = new Player("Bobby");
             store = new Store();
             days = new List<Day>();
-            currentDay = 0;
+            day = new Day();
         }
 
         //Begin New Game
@@ -30,9 +31,12 @@ namespace Lemonade_Stand
         {
             Console.WriteLine("WELCOME TO LEMONADE STAND! (PROTOTYPE)");
             Console.WriteLine("This is a developer build and does not represent final product..");
+            Console.ReadLine();
+            Console.Clear();
             int userSelectedDayAmount = SelectDays();
             while (currentDay < userSelectedDayAmount || player.wallet.Money < 1.00)
             {
+                day.weather.randomWeatherEvent();
                 StoreVisit();
                 SimulateDay();
                 SalesSummary();
@@ -76,7 +80,6 @@ namespace Lemonade_Stand
                         player.inventory.lemons.Add(new Lemon());
                     }
                     player.wallet.Money -= 2.50;
-                    Console.WriteLine("Your lemon inventory is now at {0}", player.inventory.lemons.Count);
                     Console.WriteLine("Money Left: {0}", player.wallet.Money);
                     StoreVisit();
                     break;
@@ -86,7 +89,6 @@ namespace Lemonade_Stand
                         player.inventory.sugarCubes.Add(new SugarCube());
                     }
                     player.wallet.Money -= 1.50;
-                    Console.WriteLine("Your sugar cube inventory is now at {0}", player.inventory.sugarCubes.Count);
                     Console.WriteLine("Money Left: {0}", player.wallet.Money);
                     StoreVisit();
                     break;
@@ -96,7 +98,6 @@ namespace Lemonade_Stand
                         player.inventory.iceCubes.Add(new IceCube());
                     }
                     player.wallet.Money -= 2.50;
-                    Console.WriteLine("Your ice cube inventory is now at {0}", player.inventory.iceCubes.Count);
                     Console.WriteLine("Money Left: {0}", player.wallet.Money);
                     StoreVisit();
                     break;
@@ -106,7 +107,6 @@ namespace Lemonade_Stand
                         player.inventory.cups.Add(new Cup());
                     }
                     player.wallet.Money -= 5.00;
-                    Console.WriteLine("Your cup inventory is now at {0}", player.inventory.cups.Count);
                     Console.WriteLine("Money Left: {0}", player.wallet.Money);
                     StoreVisit();
                     break;
@@ -125,6 +125,9 @@ namespace Lemonade_Stand
         public void SimulateDay()
         {
             LemonadeCreation();
+            Console.WriteLine("Day: {0}", currentDay);
+            Console.WriteLine("The Weather is: {0}", day.weather.condition);
+            Console.WriteLine("The Temperature is: {0}", day.weather.temperature);
         }
         public void SalesSummary()
         {
@@ -132,21 +135,21 @@ namespace Lemonade_Stand
         }
         public void StoreMenu()
         {
-            Console.WriteLine("*************************");
-            Console.WriteLine("* WELCOME TO YOUR STORE *");
-            Console.WriteLine("*************************");
-            Console.WriteLine("*                       *");
-            Console.WriteLine("*1.) 5 LEMONS $2.50     *");
-            Console.WriteLine("*                       *");
-            Console.WriteLine("*2.) 5 SUGAR CUBES $1.50*");
-            Console.WriteLine("*                       *");
-            Console.WriteLine("*3.) 5 ICE CUBES 2.50   *");
-            Console.WriteLine("*                       *");
-            Console.WriteLine("*4.) 5 CUPS 5.00        *");
-            Console.WriteLine("*                       *");
-            Console.WriteLine("*5.) EXIT STORE         *");
-            Console.WriteLine("*                       *");
-            Console.WriteLine("*************************");
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("*         WELCOME TO YOUR STORE           *");
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*1.)+5 LEMONS $2.50       Your Lemons: {0}*", player.inventory.lemons.Count);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*2.)+5 SUGAR-CUBES $1.50   Your Sugar: {0}*", player.inventory.sugarCubes.Count);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*3.)+5 ICE CUBES 2.50        Your Ice: {0}*", player.inventory.iceCubes.Count);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*4.)+5 CUPS 5.00            Your Cups: {0}*", player.inventory.cups.Count);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*5.) EXIT STORE                           *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*******************************************");
         }
         public void LemonadeCreation()
         {
