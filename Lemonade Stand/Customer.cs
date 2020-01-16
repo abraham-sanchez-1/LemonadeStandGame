@@ -8,5 +8,13 @@ namespace Lemonade_Stand
 {
     class Customer
     {
+        //Declaring Variables
+        public string Name; 
+
+        //Customer Constructor
+        public Customer(string Name)
+        {
+            this.Name = Name; 
+        }
     }
 }

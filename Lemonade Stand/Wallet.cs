@@ -8,5 +8,15 @@ namespace Lemonade_Stand
 {
     class Wallet
     {
+        //Declaring Variables
+        private double money;
+
+        public double Money; 
+
+        //Wallet Constructor
+        public Wallet()
+        {
+
+        }
     }
 }
