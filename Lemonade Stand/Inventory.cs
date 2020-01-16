@@ -17,11 +17,10 @@ namespace Lemonade_Stand
         //constructor
         public Inventory()
         {
-            lemons = new List<Lemon>() {new Lemon(), new Lemon(), new Lemon()};
-            iceCubes = new List<IceCube>() { new IceCube(), new IceCube(), new IceCube() };
-            sugarCubes = new List<SugarCube>() { new SugarCube(), new SugarCube(), new SugarCube() };
-            cups = new List<Cup>() { new Cup(), new Cup(), new Cup(), new Cup(), new Cup() };
-
+            lemons = new List<Lemon>();
+            iceCubes = new List<IceCube>();
+            sugarCubes = new List<SugarCube>();
+            cups = new List<Cup>();
         }
 
         //member methods
