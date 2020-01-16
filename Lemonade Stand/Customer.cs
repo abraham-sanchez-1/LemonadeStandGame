@@ -9,12 +9,14 @@ namespace Lemonade_Stand
     class Customer
     {
         //Declaring Variables
-        public string Name; 
+        public string name;
+        public int reputation;
+        public int tasteScore;
 
         //Customer Constructor
-        public Customer(string Name)
+        public Customer(string name)
         {
-            this.Name = Name; 
+            this.name = name; 
         }
     }
 }

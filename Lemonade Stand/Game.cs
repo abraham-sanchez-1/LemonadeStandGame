@@ -56,7 +56,7 @@ namespace Lemonade_Stand
                     userInput = 30;
                     return userInput;
                 default:
-                    Console.WriteLine("Cannot Negate User Input!");
+                    Console.WriteLine("Selection was invalid, try again!");
                     Console.Clear();
                     SelectDays();
                     return userInput;
@@ -66,6 +66,72 @@ namespace Lemonade_Stand
         public void StoreVisit()
         {
             //Going to the store
+            StoreMenu();
+            int userInput = Convert.ToInt32(Console.ReadLine());
+            switch (userInput)
+            {
+                case 1:
+                    for (int i = 0; i < 5; i++)
+                    {
+                        player.inventory.lemons.Add(new Lemon());
+                    }
+                    player.wallet.Money -= 2.50;
+                    Console.WriteLine("Your lemon inventory is now at {0}", player.inventory.lemons.Count);
+                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
+                    StoreVisit();
+                    break;
+                case 2:
+                    for (int i = 0; i < 5; i++)
+                    {
+                        player.inventory.sugarCubes.Add(new SugarCube());
+                    }
+                    player.wallet.Money -= 1.50;
+                    Console.WriteLine("Your sugar cube inventory is now at {0}", player.inventory.sugarCubes.Count);
+                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
+                    StoreVisit();
+                    break;
+                case 3:
+                    for (int i = 0; i < 5; i++)
+                    {
+                        player.inventory.iceCubes.Add(new IceCube());
+                    }
+                    player.wallet.Money -= 2.50;
+                    Console.WriteLine("Your ice cube inventory is now at {0}", player.inventory.iceCubes.Count);
+                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
+                    StoreVisit();
+                    break;
+                case 4:
+                    for (int i = 0; i < 5; i++)
+                    {
+                        player.inventory.cups.Add(new Cup());
+                    }
+                    player.wallet.Money -= 5.00;
+                    Console.WriteLine("Your cup inventory is now at {0}", player.inventory.cups.Count);
+                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
+                    StoreVisit();
+                    break;
+                case 5:
+                    Console.WriteLine("Thank you for visiting the store!");
+                    Console.ReadLine();
+                    Console.Clear();
+                    break;
+                default:
+                    Console.WriteLine("Selection was invalid, try again!");
+                    StoreVisit();
+                    break;
+            }
+        }
+        
+        public void SimulateDay()
+        {
+            LemonadeCreation();
+        }
+        public void SalesSummary()
+        {
+            //end of round
+        }
+        public void StoreMenu()
+        {
             Console.WriteLine("*************************");
             Console.WriteLine("* WELCOME TO YOUR STORE *");
             Console.WriteLine("*************************");
@@ -81,56 +147,37 @@ namespace Lemonade_Stand
             Console.WriteLine("*5.) EXIT STORE         *");
             Console.WriteLine("*                       *");
             Console.WriteLine("*************************");
-            int userInput = Convert.ToInt32(Console.ReadLine());
-            switch (userInput)
-            {
-                case 1:
-                    for (int i = 0; i < 5; i++)
-                    {
-                        player.inventory.lemons.Add(new Lemon());
-                    }
-                    player.wallet.Money -= 2.50;
-                    StoreVisit();
-                    break;
-                case 2:
-                    for (int i = 0; i < 5; i++)
-                    {
-                        player.inventory.sugarCubes.Add(new SugarCube());
-                    }
-                    player.wallet.Money -= 1.50;
-                    StoreVisit();
-                    break;
-                case 3:
-                    for (int i = 0; i < 5; i++)
-                    {
-                        player.inventory.iceCubes.Add(new IceCube());
-                    }
-                    player.wallet.Money -= 2.50;
-                    StoreVisit();
-                    break;
-                case 4:
-                    for (int i = 0; i < 5; i++)
-                    {
-                        player.inventory.cups.Add(new Cup());
-                    }
-                    player.wallet.Money -= 5.00;
-                    StoreVisit();
-                    break;
-                case 5:
-                    Console.WriteLine("Thank you for visiting the store!");
-                    Console.ReadLine();
-                    Console.Clear();
-                    break;
-            }
         }
-        
-        public void SimulateDay()
+        public void LemonadeCreation()
         {
+            Console.WriteLine("How many lemons would you like in your lemonade?");
+            int lemonPitcherAmount = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("How many sugar cubes would you like in your lemonade?");
+            int sugarCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("How many ice cubes would you like in your lemonade?");
+            int iceCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
+            
+          
+
 
         }
-        public void SalesSummary()
-        {
-            //end of round
-        }
-    }
+        //public void LemonadeCreationMenu(int index)
+        //{
+    //      for (int i = 0; i< 4; i++)
+    //          {
+    //            LemonadeCreationMenu(i);
+    //          }
+    //    List<string> item = new List<string>() { "lemons","sugarCubes","iceCubes"};
+    //    Console.WriteLine("*************************");
+    //    Console.WriteLine("* Lemonade Creation Menu *");
+    //    Console.WriteLine("*************************");
+    //    Console.WriteLine("*                       *");
+    //    Console.WriteLine("*   How many {0}     *",player.inventory.(item[index]).Count;
+    //    Console.WriteLine("*  would you like in    *");
+    //    Console.WriteLine("*  in your lemonade?    *");
+    //    Console.WriteLine("*                       *");
+    //    Console.WriteLine("*************************");
+
+    //}
+}
 }
