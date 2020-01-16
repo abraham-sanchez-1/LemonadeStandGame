@@ -159,20 +159,24 @@ namespace Lemonade_Stand
             int sugarCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("How many ice cubes would you like in your lemonade?");
             int iceCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Set price of individual cups");
+            double setCupPrice = Convert.ToDouble(Console.ReadLine());
+            int priceDeviance = Convert.ToInt32(Math.Abs(player.recipe.pricePerCup - setCupPrice));
             int lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
             int iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
             int sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
-            player.pitcher.pitcherTasteScore = 50 - AddThreeNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance);
+            player.pitcher.pitcherTasteScore = 50 - AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance,priceDeviance);
             Console.WriteLine("Your creation yielded a {0} taste score!", player.pitcher.pitcherTasteScore);
-
+            
         }
-        public int AddThreeNumbers(int firstNumber, int secondNumber, int thirdNumber)
+        public int AddFourNumbers(int firstNumber, int secondNumber, int thirdNumber, int fourthNumber)
         {
-            int number1, number2, number3;
+            int number1, number2, number3, number4;
             number1 = firstNumber;
             number2 = secondNumber;
             number3 = thirdNumber;
-            int total = number1 + number2 + number3;
+            number4 = fourthNumber;
+            int total = number1 + number2 + number3 + number4;
             return total;
 
         }
