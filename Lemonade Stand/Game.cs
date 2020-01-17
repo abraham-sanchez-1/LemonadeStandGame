@@ -16,7 +16,7 @@ namespace Lemonade_Stand
         public double moneyGains;
 
         public List<Day> days;
-        
+
         private int currentDay = 1;
 
         //constructor
@@ -51,7 +51,8 @@ namespace Lemonade_Stand
         public int SelectDays()
         {
             Console.WriteLine("How many days would you like to play?\n(7)\n(14)\n(30)");
-            int userInput = Convert.ToInt32(Console.ReadLine());
+            int userInput = 0;
+            int.TryParse(Console.ReadLine(), out userInput);
             switch (userInput)
             {
                 case 7:
@@ -74,7 +75,7 @@ namespace Lemonade_Stand
         public void StoreVisit()
         {
             Console.Clear();
-            int userInput = 0; 
+            int userInput = 0;
             //Going to the store
             StoreMenu();
             int.TryParse(Console.ReadLine(), out userInput);
@@ -96,7 +97,7 @@ namespace Lemonade_Stand
                         player.inventory.sugarCubes.Add(new SugarCube());
                     }
                     player.wallet.Money -= 1.50;
-                    Console.WriteLine("Money Left: {0}", player.wallet.Money); 
+                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
                     Console.Clear();
                     StoreVisit();
                     break;
@@ -116,7 +117,7 @@ namespace Lemonade_Stand
                         player.inventory.cups.Add(new Cup());
                     }
                     player.wallet.Money -= 5.00;
-                    Console.WriteLine("Money Left: {0}", player.wallet.Money); 
+                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
                     Console.Clear();
                     StoreVisit();
                     break;
@@ -130,15 +131,15 @@ namespace Lemonade_Stand
                     player.wallet.Money += 10.00;
                     Console.Clear();
                     StoreVisit();
-                    break; 
+                    break;
                 default:
                     Console.WriteLine("Selection was invalid, try again!");
-                    Console.Clear(); 
+                    Console.Clear();
                     StoreVisit();
                     break;
             }
         }
-        
+
         public void SimulateDay()
         {
             LemonadeCreation();
@@ -188,7 +189,7 @@ namespace Lemonade_Stand
             }
             for (int i = 0; i < day.customers.Count; i++)
             {
-                
+
                 if (day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
                 {
                     purchaseCount++;
@@ -212,7 +213,7 @@ namespace Lemonade_Stand
             Console.WriteLine("*******************************************");
             Console.WriteLine("* {0} customers visited the lemonade stand*", day.customers.Count);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*   There were {0} lemonade purchases     *",purchaseCount);
+            Console.WriteLine("*   There were {0} lemonade purchases     *", purchaseCount);
             Console.WriteLine("*                                         *");
             Console.WriteLine("*         You made ${0} today!            *", moneyGains);
             Console.WriteLine("*                                         *");
@@ -243,22 +244,97 @@ namespace Lemonade_Stand
         public void LemonadeCreation()
         {
             LemonadeCreationInstructions();
-            Console.WriteLine("How many lemons would you like in your lemonade?");
-            int lemonPitcherAmount = Convert.ToInt32(Console.ReadLine());   
-            player.inventory.lemons.RemoveRange(0,lemonPitcherAmount-1);
-            Console.WriteLine("How many sugar cubes would you like in your lemonade?");
-            int sugarCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
-            player.inventory.sugarCubes.RemoveRange(0, sugarCubePitcherAmount-1);
-            Console.WriteLine("How many ice cubes would you like in your lemonade?");
-            int iceCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
-            player.inventory.iceCubes.RemoveRange(0, iceCubePitcherAmount-1);
-            Console.WriteLine("Set price of individual cups");
-            player.pitcher.setCupPrice = Convert.ToDouble(Console.ReadLine());
+            int lemonPitcherAmount = LemonAmount();
+            int sugarCubePitcherAmount = SugarAmount();
+            int iceCubePitcherAmount = IceAmount();
             int priceDeviance = Convert.ToInt32(Math.Abs(player.recipe.pricePerCup - player.pitcher.setCupPrice));
             int lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
             int iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
             int sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
-            player.pitcher.pitcherTasteScore = 50 - AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance,priceDeviance); 
+            player.pitcher.pitcherTasteScore = 50 - AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, priceDeviance);
+        }
+        public int LemonAmount()
+        {
+            int userInput;
+            bool isUserInputValid = false;
+            do
+            {
+
+                Console.WriteLine("How many lemons would you like to add?");
+                isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
+
+            } while (isUserInputValid == false);
+            if (player.inventory.lemons.Count >= userInput)
+            {
+                player.inventory.lemons.RemoveRange(0, userInput);
+                return userInput;
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough lemons");
+                LemonAmount();
+                return userInput;
+            }
+
+        }
+        public int SugarAmount()
+        {
+            int userInput;
+            bool isUserInputValid = false;
+            do
+            {
+
+                Console.WriteLine("How many sugar cubes would you like to add?");
+                isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
+
+            } while (isUserInputValid == false);
+            if (player.inventory.sugarCubes.Count >= userInput)
+            {
+                player.inventory.sugarCubes.RemoveRange(0, userInput);
+                return userInput;
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough sugar cubes");
+                SugarAmount();
+                return userInput;
+            }
+        }
+        public int IceAmount()
+        {
+            int userInput;
+            bool isUserInputValid = false;
+            do
+            {
+
+                Console.WriteLine("How many ice cubes would you like to add?");
+                isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
+
+            } while (isUserInputValid == false);
+            if (player.inventory.iceCubes.Count >= userInput)
+            {
+                player.inventory.iceCubes.RemoveRange(0, userInput);
+                return userInput;
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough ice cubes");
+                IceAmount();
+                return userInput;
+            }
+        }
+        public void SetPriceOfCup()
+        {
+            double userInput;
+            bool isUserInputValid = false;
+            do
+            {
+
+                Console.WriteLine("Set price of individual cups:");
+                isUserInputValid = double.TryParse(Console.ReadLine(), out userInput);
+
+            } while (isUserInputValid == false);
+            player.pitcher.setCupPrice = userInput;
         }
 
         public int AddFourNumbers(int firstNumber, int secondNumber, int thirdNumber, int fourthNumber)
@@ -289,23 +365,5 @@ namespace Lemonade_Stand
             Console.WriteLine("*         Your Cups: {0}                  *", player.inventory.cups.Count);
             Console.WriteLine("*******************************************");
         }
-        //public void LemonadeCreationMenu(int index)
-        //{
-    //      for (int i = 0; i< 4; i++)
-    //          {
-    //            LemonadeCreationMenu(i);
-    //          }
-    //    List<string> item = new List<string>() { "lemons","sugarCubes","iceCubes"};
-    //    Console.WriteLine("*************************");
-    //    Console.WriteLine("* Lemonade Creation Menu *");
-    //    Console.WriteLine("*************************");
-    //    Console.WriteLine("*                       *");
-    //    Console.WriteLine("*   How many {0}     *",player.inventory.(item[index]).Count;
-    //    Console.WriteLine("*  would you like in    *");
-    //    Console.WriteLine("*  in your lemonade?    *");
-    //    Console.WriteLine("*                       *");
-    //    Console.WriteLine("*************************");
-
-    //}
-}
+    }
 }
