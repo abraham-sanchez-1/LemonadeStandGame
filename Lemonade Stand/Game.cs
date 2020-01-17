@@ -174,7 +174,8 @@ namespace Lemonade_Stand
                 {
                     Console.WriteLine("{0} purchased your Lemonade!", day.customers[i].name);
                     player.pitcher.cupsLeftInPitcher -= +1;
-                    player.wallet.Money += player.pitcher.setCupPrice;  
+                    player.wallet.Money += player.pitcher.setCupPrice;
+                    player.inventory.cups.Remove(new Cup());
                 }
                 else 
                 {
@@ -209,13 +210,13 @@ namespace Lemonade_Stand
         {
             Console.WriteLine("How many lemons would you like in your lemonade?");
             int lemonPitcherAmount = Convert.ToInt32(Console.ReadLine());   
-            player.inventory.lemons.RemoveRange(0,lemonPitcherAmount);
+            player.inventory.lemons.RemoveRange(0,lemonPitcherAmount-1);
             Console.WriteLine("How many sugar cubes would you like in your lemonade?");
             int sugarCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
-            player.inventory.sugarCubes.RemoveRange(0, sugarCubePitcherAmount);
+            player.inventory.sugarCubes.RemoveRange(0, sugarCubePitcherAmount-1);
             Console.WriteLine("How many ice cubes would you like in your lemonade?");
             int iceCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
-            player.inventory.iceCubes.RemoveRange(0, iceCubePitcherAmount);
+            player.inventory.iceCubes.RemoveRange(0, iceCubePitcherAmount-1);
             Console.WriteLine("Set price of individual cups");
             player.pitcher.setCupPrice = Convert.ToDouble(Console.ReadLine());
             int priceDeviance = Convert.ToInt32(Math.Abs(player.recipe.pricePerCup - player.pitcher.setCupPrice));
