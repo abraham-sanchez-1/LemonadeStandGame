@@ -9,19 +9,23 @@ namespace Lemonade_Stand
     class Game
     {
         //member variable
-        private Player player;
+        public Player player;
+        public Bank bankLoan = new Bank();
         private Store store;
         private Day day;
+        
         public int purchaseCount;
         public double moneyGains;
 
         public List<Day> days;
 
-        private int currentDay = 1;
+        public int currentDay = 1;
 
+        public bool hasBankLoan = false;
         //constructor
         public Game()
         {
+            
             player = new Player("Bobby");
             store = new Store();
             days = new List<Day>();
@@ -51,17 +55,13 @@ namespace Lemonade_Stand
                 Console.Clear();
                 Console.WriteLine("You have succesfully completed Lemonade Stand!");
                 Console.WriteLine("Developed by: Abraham Sanchez and Marcus Johnson!");
-                Console.WriteLine("GAME SUMMARY HERE"); // FUTURE GAME SUMMARY METHOD
                 Console.WriteLine("Thank you for playing!");
                 Console.ReadLine();
                 Environment.Exit(0);
             }
             else if (player.wallet.Money < 1.00)
             {
-                Console.WriteLine("You have failed to maintain your balance.");
-                Console.WriteLine("Developed by: Abraham Sanchez and Marcus Johnson!");
-                Console.WriteLine("POTENTIAL BANK LOAN METHOD"); // FUTURE POTENITAL BANK LOAN METHOD
-                Console.WriteLine("Thank you for playing!");
+                //bankLoan.bankLoanInterface();
             }
         }
 
@@ -225,6 +225,7 @@ namespace Lemonade_Stand
 
         public void SalesSummary()
         {
+            int paidBank = 0;
             Console.Clear();
             Console.WriteLine("*******************************************");
             Console.WriteLine("*        Day {0} End: Sales Summary        *", currentDay);
@@ -238,6 +239,18 @@ namespace Lemonade_Stand
             Console.WriteLine("* Customers gave your lemondae a score of *");
             Console.WriteLine("*                 {0}                     *", player.pitcher.pitcherTasteScore);
             Console.WriteLine("*******************************************");
+            //if (hasBankLoan == true)
+            //{
+            //    player.wallet.Money -= bankLoan.dailyPayment;
+            //    Console.WriteLine("You have also paid the bank ${0} today.", bankLoan.dailyPayment);
+            //    Console.ReadLine();
+            //    paidBank++;
+            //    if (paidBank == 6)
+            //    {
+            //        Console.WriteLine("You have paid your loan in full.");
+            //        paidBank = 0;
+            //    }
+            //}
         }
 
         public void StoreMenu()
@@ -325,6 +338,8 @@ namespace Lemonade_Stand
             do
             {
 
+            } while (true);
+            {
                 Console.Write("How many ice cubes would you like to add: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
@@ -381,30 +396,6 @@ namespace Lemonade_Stand
             Console.WriteLine("*         Your Ice: {0}                   *", player.inventory.iceCubes.Count);
             Console.WriteLine("*                                         *");
             Console.WriteLine("*         Your Cups: {0}                  *", player.inventory.cups.Count);
-            Console.WriteLine("*******************************************");
-        }
-
-        public void bankLoanInterface()
-        {
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*        YOU ARE OUT OF MONEY.            *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*      LOAN OPTIONS ARE AVALIBLE.         *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*    1.) $100   APR: 1.5%                 *");
-            Console.WriteLine("*        DAILY PAYMENT OF: 10.00          *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*                                         *");
             Console.WriteLine("*******************************************");
         }
     }
