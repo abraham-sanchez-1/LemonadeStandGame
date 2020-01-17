@@ -211,15 +211,20 @@ namespace Lemonade_Stand
                 if (day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
                 {
                     purchaseCount++;
-                    player.pitcher.cupsLeftInPitcher -= +1;
+                    player.pitcher.cupsLeftInPitcher -= 1;
                     player.wallet.Money += player.pitcher.setCupPrice;
                     moneyGains += player.pitcher.setCupPrice;
                     player.inventory.cups.RemoveAt(0);
+                    if (player.inventory.cups.Count == 0)
+                    {
+                        Console.WriteLine("You have run out cups to serve your lemonade!");
+                        break;
+                    }
                 }
-                else
-                {
-                    //Drink is trash statement
-                }
+                //else
+                //{
+                //    Drink is trash statement
+                //}
             }
         }
 
