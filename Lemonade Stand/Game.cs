@@ -49,6 +49,7 @@ namespace Lemonade_Stand
                 currentDay++;
                 purchaseCount = 0;
                 moneyGains = 0;
+                day.customers.Count();
             }
             if (currentDay > userSelectedDayAmount)
             {
@@ -206,19 +207,22 @@ namespace Lemonade_Stand
             }
             for (int i = 0; i < day.customers.Count; i++)
             {
-
-                if (day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
+                if (player.inventory.cups.Count > 0 && day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
                 {
                     purchaseCount++;
                     player.pitcher.cupsLeftInPitcher -= 1;
                     player.wallet.Money += player.pitcher.setCupPrice;
                     moneyGains += player.pitcher.setCupPrice;
                     player.inventory.cups.RemoveAt(0);
-                    if (player.inventory.cups.Count == 0)
-                    {
-                        Console.WriteLine("You have run out cups to serve your lemonade!");
-                        break;
-                    }
+                    
+                }
+                else if (player.inventory.cups.Count == 0)
+                {
+                    Console.WriteLine("You have run out cups to serve your lemonade!");
+                    Console.WriteLine("");
+                    Console.ReadLine();
+                    Console.Clear();
+                    break;
                 }
             }
         }
@@ -323,16 +327,6 @@ namespace Lemonade_Stand
             return userInput;
         }
 
-        public int AddFourNumbers(int firstNumber, int secondNumber, int thirdNumber, int fourthNumber)
-        {
-            int number1, number2, number3, number4;
-            number1 = firstNumber;
-            number2 = secondNumber;
-            number3 = thirdNumber;
-            number4 = fourthNumber;
-            int total = number1 + number2 + number3 + number4;
-            return total;
-        }
     }
 
 }
