@@ -161,27 +161,9 @@ namespace Lemonade_Stand
         public void SimulateDay()
         {
             LemonadeCreation();
-            Console.WriteLine("Day: {0}", currentDay);
-            Console.WriteLine("The Weather is: {0}", day.weather.condition);
-            Console.WriteLine("The Temperature is: {0}", day.weather.temperature);
-            Console.WriteLine("Click to continue");
-            Console.Read();
-
+            userInterface.ReportWeather(day.weather, currentDay);
             populateCustomers();
             SalesSummary();
-        }
-        public void ReportWeather()
-        {
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*       Weather Report for the day        *");
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*         Day:               {0}          *", currentDay);
-            Console.WriteLine("*         Weather condition: {0}       *", day.weather.condition);
-            Console.WriteLine("          Temperature is:    {0}F degrees *", day.weather.temperature);
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("Click to continue");
-            Console.Read();
-
         }
 
         public void populateCustomers()
@@ -304,7 +286,8 @@ namespace Lemonade_Stand
             int lemonPitcherAmount = LemonAmount();
             int sugarCubePitcherAmount = SugarAmount();
             int iceCubePitcherAmount = IceAmount();
-            int priceDeviance = Convert.ToInt32(Math.Abs(player.recipe.pricePerCup - player.pitcher.setCupPrice));
+            int setCupPrice = SetPriceOfCup();
+            int priceDeviance = Math.Abs(player.recipe.pricePerCup - player.pitcher.setCupPrice);
             int lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
             int iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
             int sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
@@ -341,7 +324,7 @@ namespace Lemonade_Stand
             do
             {
 
-                Console.Write("How many sugar cubes would you like to add?");
+                Console.Write("How many sugar cubes would you like to add: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
@@ -356,7 +339,7 @@ namespace Lemonade_Stand
                 SugarAmount();
                 return userInput;
             }
-    
+
         }
         public int IceAmount()
         {
@@ -365,8 +348,6 @@ namespace Lemonade_Stand
             do
             {
 
-            } while (isUserInputValid == false);
-            {
                 Console.Write("How many ice cubes would you like to add: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
@@ -382,19 +363,21 @@ namespace Lemonade_Stand
                 IceAmount();
                 return userInput;
             }
+
         }
-        public void SetPriceOfCup()
+        public int SetPriceOfCup()
         {
-            double userInput;
+            int userInput;
             bool isUserInputValid = false;
             do
             {
 
-                Console.Write("Set price of individual cups: ");
-                isUserInputValid = double.TryParse(Console.ReadLine(), out userInput);
+                Console.Write("Set price of individual cups:\n(Please select a whole dollar amount)");
+                isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
             player.pitcher.setCupPrice = userInput;
+            return userInput;
         }
 
         public int AddFourNumbers(int firstNumber, int secondNumber, int thirdNumber, int fourthNumber)

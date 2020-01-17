@@ -12,7 +12,7 @@ namespace Lemonade_Stand
         //Declaring Variables
         public int amountOfLemons, amountOfSugarCubes, amountOfIceCubes;
 
-        public double pricePerCup; 
+        public int pricePerCup; 
 
         //constructor
         public Recipe()
@@ -20,7 +20,7 @@ namespace Lemonade_Stand
             amountOfLemons = 3;
             amountOfSugarCubes = 6;
             amountOfIceCubes = 12;
-            pricePerCup = 0.25;
+            pricePerCup = 2;
         }
 
         //member methods
