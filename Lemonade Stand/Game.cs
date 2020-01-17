@@ -32,7 +32,7 @@ namespace Lemonade_Stand
         public void NewGame()
         {
             Console.WriteLine("WELCOME TO LEMONADE STAND! (PROTOTYPE)");
-            Console.WriteLine("This is a developer build and does not represent final product..");
+            Console.WriteLine("This is a developer build and does not represent the final product..");
             Console.ReadLine();
             Console.Clear();
             int userSelectedDayAmount = SelectDays();
@@ -46,11 +46,29 @@ namespace Lemonade_Stand
                 purchaseCount = 0;
                 moneyGains = 0;
             }
+            if (currentDay > userSelectedDayAmount)
+            {
+                Console.Clear();
+                Console.WriteLine("You have succesfully completed Lemonade Stand!");
+                Console.WriteLine("Developed by: Abraham Sanchez and Marcus Johnson!");
+                Console.WriteLine("GAME SUMMARY HERE"); // FUTURE GAME SUMMARY METHOD
+                Console.WriteLine("Thank you for playing!");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
+            else if (player.wallet.Money < 1.00)
+            {
+                Console.WriteLine("You have failed to maintain your balance.");
+                Console.WriteLine("Developed by: Abraham Sanchez and Marcus Johnson!");
+                Console.WriteLine("POTENTIAL BANK LOAN METHOD"); // FUTURE POTENITAL BANK LOAN METHOD
+                Console.WriteLine("Thank you for playing!");
+            }
         }
 
         public int SelectDays()
         {
             Console.WriteLine("How many days would you like to play?\n(7)\n(14)\n(30)");
+            Console.Write("Please tell me: ");
             int userInput = 0;
             int.TryParse(Console.ReadLine(), out userInput);
             switch (userInput)
@@ -260,7 +278,7 @@ namespace Lemonade_Stand
             do
             {
 
-                Console.WriteLine("How many lemons would you like to add?");
+                Console.Write("How many lemons would you like to add: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
@@ -271,7 +289,7 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough lemons");
+                Console.WriteLine("You don't have enough lemons!");
                 LemonAmount();
                 return userInput;
             }
@@ -295,7 +313,7 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough sugar cubes");
+                Console.WriteLine("You don't have enough sugar cubes!");
                 SugarAmount();
                 return userInput;
             }
@@ -307,7 +325,7 @@ namespace Lemonade_Stand
             do
             {
 
-                Console.WriteLine("How many ice cubes would you like to add?");
+                Console.Write("How many ice cubes would you like to add: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
@@ -318,7 +336,7 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough ice cubes");
+                Console.WriteLine("You don't have enough ice cubes!");
                 IceAmount();
                 return userInput;
             }
@@ -330,7 +348,7 @@ namespace Lemonade_Stand
             do
             {
 
-                Console.WriteLine("Set price of individual cups:");
+                Console.Write("Set price of individual cups: ");
                 isUserInputValid = double.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
