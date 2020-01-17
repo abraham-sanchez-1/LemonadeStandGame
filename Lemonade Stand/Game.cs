@@ -94,8 +94,9 @@ namespace Lemonade_Stand
         {
             Console.Clear();
             int userInput = 0;
-            //Going to the store
             userInterface.StoreMenu(player);
+            // DO NOT REMOVE
+            Console.Write("Choose: ");
             int.TryParse(Console.ReadLine(), out userInput);
             switch (userInput)
             {
@@ -219,49 +220,8 @@ namespace Lemonade_Stand
                         break;
                     }
                 }
-                //else
-                //{
-                //    Drink is trash statement
-                //}
             }
         }
-
-        //public void SalesSummary()
-        //{
-        //    //int paidBank = 0;
-        //    Console.Clear();
-        //    Console.WriteLine("*******************************************");
-        //    Console.WriteLine("*        Day {0} End: Sales Summary        *", currentDay);
-        //    Console.WriteLine("*******************************************");
-        //    Console.WriteLine("* {0} customers visited the lemonade stand*", day.customers.Count);
-        //    Console.WriteLine("*                                         *");
-        //    Console.WriteLine("*   There were {0} lemonade purchases     *", purchaseCount);
-        //    Console.WriteLine("*                                         *");
-        //    Console.WriteLine("*         You made ${0} today!            *", moneyGains);
-        //    Console.WriteLine("*                                         *");
-        //    Console.WriteLine("* Customers gave your lemondae a score of *");
-        //    Console.WriteLine("*                 {0}                     *", player.pitcher.pitcherTasteScore);
-        //    Console.WriteLine("*******************************************");
-        //    Console.WriteLine("Click to continue");
-        //    Console.ReadLine();
-        //}
-        //if (hasBankLoan == true)
-        //{
-        //    player.wallet.Money -= bankLoan.dailyPayment;
-        //    Console.WriteLine("You have also paid the bank ${0} today.", bankLoan.dailyPayment);
-        //    Console.ReadLine();
-        //    paidBank++;
-        //    if (paidBank == 6)
-        //    {
-        //        Console.WriteLine("You have paid your loan in full.");
-        //        paidBank = 0;
-        //    }
-        //}
-
-
-
-
-
 
         public void LemonadeCreation()
         {

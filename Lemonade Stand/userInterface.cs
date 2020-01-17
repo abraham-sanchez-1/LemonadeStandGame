@@ -85,6 +85,17 @@ namespace Lemonade_Stand
             Console.WriteLine("*******************************************");
             Console.WriteLine("Click to continue");
             Console.ReadLine();
+            //if (hasBankLoan == true)
+            //{
+            //    player.wallet.Money -= bankLoan.dailyPayment;
+            //    Console.WriteLine("You have also paid the bank ${0} today.", bankLoan.dailyPayment);
+            //    Console.ReadLine();
+            //    paidBank++;
+            //    if (paidBank == 6)
+            //    {
+            //        Console.WriteLine("You have paid your loan in full.");
+            //        paidBank = 0;
+            //    }
         }
 
     }
