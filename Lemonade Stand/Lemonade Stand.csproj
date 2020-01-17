@@ -91,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Lemonade Stand_TemporaryKey.pfx" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\Lemonade Stand.csprojAssemblyReference.cache" />
   </ItemGroup>

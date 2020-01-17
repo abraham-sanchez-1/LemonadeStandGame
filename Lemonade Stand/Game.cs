@@ -243,6 +243,8 @@ namespace Lemonade_Stand
             Console.WriteLine("* Customers gave your lemondae a score of *");
             Console.WriteLine("*                 {0}                     *", player.pitcher.pitcherTasteScore);
             Console.WriteLine("*******************************************");
+            Console.WriteLine("Click to continue");
+            Console.ReadLine();
         }
 
         public void StoreMenu()
