@@ -12,6 +12,8 @@ namespace Lemonade_Stand
         private Player player;
         private Store store;
         private Day day;
+        public int purchaseCount;
+        public double moneyGains;
 
         public List<Day> days;
         
@@ -40,7 +42,9 @@ namespace Lemonade_Stand
                 StoreVisit();
                 SimulateDay();
                 SalesSummary();
-                currentDay++; 
+                currentDay++;
+                purchaseCount = 0;
+                moneyGains = 0;
             }
         }
 
@@ -178,10 +182,11 @@ namespace Lemonade_Stand
                 
                 if (day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
                 {
-                    
+                    purchaseCount++;
                     player.pitcher.cupsLeftInPitcher -= +1;
                     player.wallet.Money += player.pitcher.setCupPrice;
-                    player.inventory.cups.Remove(new Cup());
+                    moneyGains += player.pitcher.setCupPrice;
+                    player.inventory.cups.RemoveAt(0);
                 }
                 else
                 {
@@ -192,8 +197,19 @@ namespace Lemonade_Stand
 
         public void SalesSummary()
         {
-            //end of round
-            Console.WriteLine("Your creation yielded a {0} taste score!", player.pitcher.pitcherTasteScore);
+            Console.Clear();
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("*        Day {0} End: Sales Summary        *", currentDay);
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("* {0} customers visited the lemonade stand*", day.customers.Count);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*   There were {0} lemonade purchases     *",purchaseCount);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*         You made ${0} today!            *", moneyGains);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("* Customers gave your lemondae a score of *");
+            Console.WriteLine("*                 {0}                     *", player.pitcher.pitcherTasteScore);
+            Console.WriteLine("*******************************************");
         }
 
         public void StoreMenu()
