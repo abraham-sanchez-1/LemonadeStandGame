@@ -40,9 +40,8 @@ namespace Lemonade_Stand
         //Begin New Game
         public void NewGame()
         {
-            Console.Title = "YOUR LEMONADE STAND V1";
-            Console.WriteLine("Welcome to Your Lemonade Stand!");
-            Console.Clear();
+            titleMenu();
+            
             int userSelectedDayAmount = SelectDays();
             while (currentDay < userSelectedDayAmount || player.wallet.Money < 1.00)
             {
@@ -65,7 +64,7 @@ namespace Lemonade_Stand
             }
             else if (player.wallet.Money < 1.00)
             {
-                //bankLoan.bankLoanInterface();
+                bankLoanInterface();
             }
         }
 
@@ -381,6 +380,19 @@ namespace Lemonade_Stand
                 Console.ReadLine();
                 Environment.Exit(0);
             }
+        }
+        public void titleMenu()
+        {
+
+            Console.Title = "YOUR LEMONADE STAND V1";
+            Console.WriteLine("db    db   .d88b.  db    db d8888b.      db      d88888b .88b  d88.  .d88b.  d8b   db  .d8b.  d8888b. d88888b      .d8888. d888888b  .d8b.  d8b   db d8888b. ");
+            Console.WriteLine("`8b  d8'  .8P  Y8. 88    88 88  `8D      88      88'     88'YbdP`88 .8P  Y8. 888o  88 d8' `8b 88  `8D 88'          88'  YP `~~88~~' d8' `8b 888o  88 88  `8D ");
+            Console.WriteLine(" `8bd8'   88    88 88    88 88oobY'      88      88ooooo 88  88  88 88    88 88V8o 88 88ooo88 88   88 88ooooo      `8bo.      88    88ooo88 88V8o 88 88   88 ");
+            Console.WriteLine("   88     88    88 88    88 88`8b        88      88~~~~~ 88  88  88 88    88 88 V8o88 88~~~88 88   88 88~~~~~        `Y8b.    88    88~~~88 88 V8o88 88   88 ");
+            Console.WriteLine("   88     `8b  d8' 88b  d88 88 `88.      88booo. 88.     88  88  88 `8b  d8' 88  V888 88   88 88  .8D 88.          db   8D    88    88   88 88  V888 88  .8D ");
+            Console.WriteLine("   YP      `Y88P'  ~Y8888P' 88   YD      Y88888P Y88888P YP  YP  YP  `Y88P'  VP   V8P YP   YP Y8888D' Y88888P      `8888Y'    YP    YP   YP VP   V8P Y8888D' ");
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }
