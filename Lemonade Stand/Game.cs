@@ -12,7 +12,7 @@ namespace Lemonade_Stand
         public Player player;
         public Bank bankLoan = new Bank();
         private Store store;
-        private Day day;
+        public Day day;
         
         public int purchaseCount;
         public double moneyGains;
@@ -45,7 +45,7 @@ namespace Lemonade_Stand
                 day.weather.randomWeatherEvent();
                 StoreVisit();
                 SimulateDay();
-                SalesSummary();
+                userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains);
                 currentDay++;
                 purchaseCount = 0;
                 moneyGains = 0;
@@ -95,7 +95,7 @@ namespace Lemonade_Stand
             Console.Clear();
             int userInput = 0;
             //Going to the store
-            StoreMenu();
+            userInterface.StoreMenu(player);
             int.TryParse(Console.ReadLine(), out userInput);
             switch (userInput)
             {
@@ -163,7 +163,7 @@ namespace Lemonade_Stand
             LemonadeCreation();
             userInterface.ReportWeather(day.weather, currentDay);
             populateCustomers();
-            SalesSummary();
+            userInterface.SalesSummary(player,currentDay,day,purchaseCount,moneyGains);
         }
 
         public void populateCustomers()
@@ -226,63 +226,46 @@ namespace Lemonade_Stand
             }
         }
 
-        public void SalesSummary()
-        {
-            //int paidBank = 0;
-            Console.Clear();
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*        Day {0} End: Sales Summary        *", currentDay);
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("* {0} customers visited the lemonade stand*", day.customers.Count);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*   There were {0} lemonade purchases     *", purchaseCount);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*         You made ${0} today!            *", moneyGains);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("* Customers gave your lemondae a score of *");
-            Console.WriteLine("*                 {0}                     *", player.pitcher.pitcherTasteScore);
-            Console.WriteLine("*******************************************");
-            //if (hasBankLoan == true)
-            //{
-            //    player.wallet.Money -= bankLoan.dailyPayment;
-            //    Console.WriteLine("You have also paid the bank ${0} today.", bankLoan.dailyPayment);
-            //    Console.ReadLine();
-            //    paidBank++;
-            //    if (paidBank == 6)
-            //    {
-            //        Console.WriteLine("You have paid your loan in full.");
-            //        paidBank = 0;
-            //    }
-            //}
+        //public void SalesSummary()
+        //{
+        //    //int paidBank = 0;
+        //    Console.Clear();
+        //    Console.WriteLine("*******************************************");
+        //    Console.WriteLine("*        Day {0} End: Sales Summary        *", currentDay);
+        //    Console.WriteLine("*******************************************");
+        //    Console.WriteLine("* {0} customers visited the lemonade stand*", day.customers.Count);
+        //    Console.WriteLine("*                                         *");
+        //    Console.WriteLine("*   There were {0} lemonade purchases     *", purchaseCount);
+        //    Console.WriteLine("*                                         *");
+        //    Console.WriteLine("*         You made ${0} today!            *", moneyGains);
+        //    Console.WriteLine("*                                         *");
+        //    Console.WriteLine("* Customers gave your lemondae a score of *");
+        //    Console.WriteLine("*                 {0}                     *", player.pitcher.pitcherTasteScore);
+        //    Console.WriteLine("*******************************************");
+        //    Console.WriteLine("Click to continue");
+        //    Console.ReadLine();
+        //}
+        //if (hasBankLoan == true)
+        //{
+        //    player.wallet.Money -= bankLoan.dailyPayment;
+        //    Console.WriteLine("You have also paid the bank ${0} today.", bankLoan.dailyPayment);
+        //    Console.ReadLine();
+        //    paidBank++;
+        //    if (paidBank == 6)
+        //    {
+        //        Console.WriteLine("You have paid your loan in full.");
+        //        paidBank = 0;
+        //    }
+        //}
 
-            Console.WriteLine("Click to continue");
-            Console.ReadLine();
 
 
-        }
 
-        public void StoreMenu()
-        {
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*         WELCOME TO YOUR STORE           *");
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*1.)+5 LEMONS $2.50       Your Lemons: {0}*", player.inventory.lemons.Count);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*2.)+5 SUGAR-CUBES $1.50   Your Sugar: {0}*", player.inventory.sugarCubes.Count);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*3.)+5 ICE CUBES 2.50        Your Ice: {0}*", player.inventory.iceCubes.Count);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*4.)+5 CUPS 5.00            Your Cups: {0}*", player.inventory.cups.Count);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*5.) EXIT STORE             Wallet: ${0}  *", player.wallet.Money);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*******************************************");
-        }
+
 
         public void LemonadeCreation()
         {
-            LemonadeCreationInstructions();
+            userInterface.LemonadeCreationInstructions(player);
             int lemonPitcherAmount = LemonAmount();
             int sugarCubePitcherAmount = SugarAmount();
             int iceCubePitcherAmount = IceAmount();
@@ -291,7 +274,7 @@ namespace Lemonade_Stand
             int lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
             int iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
             int sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
-            player.pitcher.pitcherTasteScore = 50 - AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, priceDeviance);
+            player.pitcher.pitcherTasteScore = 50 - userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, setCupPrice);
         }
         public int LemonAmount()
         {
@@ -389,24 +372,6 @@ namespace Lemonade_Stand
             number4 = fourthNumber;
             int total = number1 + number2 + number3 + number4;
             return total;
-        }
-
-        public void LemonadeCreationInstructions()
-        {
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*         Lemonade Creation Menu          *");
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("* To create lemonade, indicate quantity   *");
-            Console.WriteLine("* of each ingredient in prompt below.     *");
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*         Your Lemons: {0}                *", player.inventory.lemons.Count);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*         Your Sugar: {0}                 *", player.inventory.sugarCubes.Count);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*         Your Ice: {0}                   *", player.inventory.iceCubes.Count);
-            Console.WriteLine("*                                         *");
-            Console.WriteLine("*         Your Cups: {0}                  *", player.inventory.cups.Count);
-            Console.WriteLine("*******************************************");
         }
     }
 

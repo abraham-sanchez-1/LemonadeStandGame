@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lemonade_Stand
 {
-    class Customer
+    public class Customer
     {
         //Declaring Variables
         public string name;

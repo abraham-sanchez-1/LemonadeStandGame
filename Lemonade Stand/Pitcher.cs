@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lemonade_Stand
 {
-    class Pitcher
+    public class Pitcher
     {
         //Declaring Variables
         public int cupsLeftInPitcher;

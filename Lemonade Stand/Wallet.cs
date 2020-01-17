@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lemonade_Stand
 {
-    class Wallet
+    public class Wallet
     {
         //Declaring Variables
         private double money;

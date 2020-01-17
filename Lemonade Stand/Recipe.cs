@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Lemonade_Stand
 {
 
-    class Recipe
+    public class Recipe
     {
         //Declaring Variables
         public int amountOfLemons, amountOfSugarCubes, amountOfIceCubes;
