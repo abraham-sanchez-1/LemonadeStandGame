@@ -132,6 +132,12 @@ namespace Lemonade_Stand
             Console.WriteLine("Day: {0}", currentDay);
             Console.WriteLine("The Weather is: {0}", day.weather.condition);
             Console.WriteLine("The Temperature is: {0}", day.weather.temperature);
+            populateCustomers();
+
+        }
+
+        public void populateCustomers()
+        {
             if (day.weather.condition == "sunny" && day.weather.temperature >= 90)
             {
                 for (int i = 0; i < 80; i++)
@@ -169,25 +175,27 @@ namespace Lemonade_Stand
             }
             for (int i = 0; i < day.customers.Count; i++)
             {
-                Console.WriteLine("{0} is approaching...", day.customers[i].name);
+                
                 if (day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
                 {
-                    Console.WriteLine("{0} purchased your Lemonade!", day.customers[i].name);
+                    
                     player.pitcher.cupsLeftInPitcher -= +1;
                     player.wallet.Money += player.pitcher.setCupPrice;
                     player.inventory.cups.Remove(new Cup());
                 }
-                else 
+                else
                 {
-                    Console.WriteLine("{0} said your drink was trash..", day.customers[i].name);
+                    //Drink is trash statement
                 }
             }
-
         }
+
         public void SalesSummary()
         {
             //end of round
+            Console.WriteLine("Your creation yielded a {0} taste score!", player.pitcher.pitcherTasteScore);
         }
+
         public void StoreMenu()
         {
             Console.WriteLine("*******************************************");
@@ -206,6 +214,7 @@ namespace Lemonade_Stand
             Console.WriteLine("*                                         *");
             Console.WriteLine("*******************************************");
         }
+
         public void LemonadeCreation()
         {
             LemonadeCreationInstructions();
@@ -224,10 +233,9 @@ namespace Lemonade_Stand
             int lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
             int iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
             int sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
-            player.pitcher.pitcherTasteScore = 50 - AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance,priceDeviance);
-            Console.WriteLine("Your creation yielded a {0} taste score!", player.pitcher.pitcherTasteScore);
-            
+            player.pitcher.pitcherTasteScore = 50 - AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance,priceDeviance); 
         }
+
         public int AddFourNumbers(int firstNumber, int secondNumber, int thirdNumber, int fourthNumber)
         {
             int number1, number2, number3, number4;
