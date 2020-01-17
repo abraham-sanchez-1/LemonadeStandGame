@@ -194,11 +194,14 @@ namespace Lemonade_Stand
         public void LemonadeCreation()
         {
             Console.WriteLine("How many lemons would you like in your lemonade?");
-            int lemonPitcherAmount = Convert.ToInt32(Console.ReadLine());
+            int lemonPitcherAmount = Convert.ToInt32(Console.ReadLine());   
+            player.inventory.lemons.RemoveRange(0,lemonPitcherAmount);
             Console.WriteLine("How many sugar cubes would you like in your lemonade?");
             int sugarCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
+            player.inventory.sugarCubes.RemoveRange(0, sugarCubePitcherAmount);
             Console.WriteLine("How many ice cubes would you like in your lemonade?");
             int iceCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
+            player.inventory.iceCubes.RemoveRange(0, iceCubePitcherAmount);
             Console.WriteLine("Set price of individual cups");
             double setCupPrice = Convert.ToDouble(Console.ReadLine());
             int priceDeviance = Convert.ToInt32(Math.Abs(player.recipe.pricePerCup - setCupPrice));
