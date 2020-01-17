@@ -67,9 +67,8 @@ namespace Lemonade_Stand
             int total = number1 + number2 + number3 + number4;
             return total;
         }
-        public static void SalesSummary(Player player, int currentDay, Day day,int purchaseCount, double moneyGains)
+        public static void SalesSummary(Player player, int currentDay, Day day, int purchaseCount, double moneyGains, double paidBank, bool hasBankLoan, double dailyPayment)
         {
-            //int paidBank = 0;
             Console.Clear();
             Console.WriteLine("*******************************************");
             Console.WriteLine("*        Day {0} End: Sales Summary        *", currentDay);
@@ -80,23 +79,25 @@ namespace Lemonade_Stand
             Console.WriteLine("*                                         *");
             Console.WriteLine("*         You made ${0} today!            *", moneyGains);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("* Customers gave your lemondae a score of *");
+            Console.WriteLine("* Customers gave your lemonade a score of *");
             Console.WriteLine("*                 {0}                     *", player.pitcher.pitcherTasteScore);
             Console.WriteLine("*******************************************");
             Console.WriteLine("Click to continue");
             Console.ReadLine();
-            //if (hasBankLoan == true)
-            //{
-            //    player.wallet.Money -= bankLoan.dailyPayment;
-            //    Console.WriteLine("You have also paid the bank ${0} today.", bankLoan.dailyPayment);
-            //    Console.ReadLine();
-            //    paidBank++;
-            //    if (paidBank == 6)
-            //    {
-            //        Console.WriteLine("You have paid your loan in full.");
-            //        paidBank = 0;
-            //    }
-        }
+            if (hasBankLoan == true)
+            {
+                player.wallet.Money -= dailyPayment;
+                Console.WriteLine("You have also paid the bank ${0} today.", dailyPayment);
+                Console.ReadLine();
+                paidBank++;
+                if (paidBank == 6)
+                {
+                    Console.WriteLine("You have paid your loan in full.");
+                    paidBank = 0;
+                }
+            }
 
+        }
     }
 }
+

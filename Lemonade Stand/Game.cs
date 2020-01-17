@@ -10,8 +10,13 @@ namespace Lemonade_Stand
     {
         //member variable
         public Player player;
-        public Bank bankLoan = new Bank();
-        private Store store;
+        public double timeInvolved;
+        public bool userInputValid = false;
+        public double potentialLoanAmount;
+        public double paidBank = 0;
+        public double dailyPayment;
+        public double interestRate = .05;
+        public Store store;
         public Day day;
         
         public int purchaseCount;
@@ -35,9 +40,8 @@ namespace Lemonade_Stand
         //Begin New Game
         public void NewGame()
         {
-            Console.WriteLine("WELCOME TO LEMONADE STAND! (PROTOTYPE)");
-            Console.WriteLine("This is a developer build and does not represent the final product..");
-            Console.ReadLine();
+            Console.Title = "YOUR LEMONADE STAND V1";
+            Console.WriteLine("Welcome to Your Lemonade Stand!");
             Console.Clear();
             int userSelectedDayAmount = SelectDays();
             while (currentDay < userSelectedDayAmount || player.wallet.Money < 1.00)
@@ -45,7 +49,7 @@ namespace Lemonade_Stand
                 day.weather.randomWeatherEvent();
                 StoreVisit();
                 SimulateDay();
-                userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains);
+                userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
                 currentDay++;
                 purchaseCount = 0;
                 moneyGains = 0;
@@ -165,9 +169,9 @@ namespace Lemonade_Stand
             LemonadeCreation();
             userInterface.ReportWeather(day.weather, currentDay);
             populateCustomers();
-            userInterface.SalesSummary(player,currentDay,day,purchaseCount,moneyGains);
+            userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
         }
-
+        
         public void populateCustomers()
         {
             if (day.weather.condition == "sunny" && day.weather.temperature >= 90)
@@ -327,6 +331,51 @@ namespace Lemonade_Stand
             return userInput;
         }
 
-    }
 
+
+
+        public void bankLoanInterface()
+        {
+            
+            do
+            {
+                Console.WriteLine("*******************************************");
+                Console.WriteLine("*         YOU ARE OUT OF MONEY.           *");
+                Console.WriteLine("*******************************************");
+                Console.WriteLine("*                                         *");
+                Console.WriteLine("*    YOU CAN APPLY FOR A LOAN BELOW       *");
+                Console.WriteLine("*                                         *");
+                Console.WriteLine("*******************************************");
+                Console.Write("The Amount: $");
+                userInputValid = double.TryParse(Console.ReadLine(), out potentialLoanAmount);
+            } while (userInputValid == false);
+            if (potentialLoanAmount > 10000)
+            {
+                timeInvolved = 6;
+                dailyPayment = potentialLoanAmount * interestRate * timeInvolved;
+                Console.WriteLine();
+                Console.WriteLine("*******************************************");
+                Console.WriteLine("*    YOU HAVE BEEN APPROVED FOR: ${0}     *", potentialLoanAmount);
+                Console.WriteLine("*******************************************");
+                Console.WriteLine("*                                         *");
+                Console.WriteLine("*     THE INTEREST RATE IS 5 PERCENT      *");
+                Console.WriteLine("*     YOUR DAILY PAYMENT = ${0}           *", dailyPayment);
+                Console.WriteLine("*     FOR SIX DAYS.                       *");
+                Console.WriteLine("*******************************************");
+                hasBankLoan = true;
+                currentDay = currentDay + 30;
+                player.wallet.Money += potentialLoanAmount;
+                Console.ReadLine();
+                StoreVisit();
+            }
+            else
+            {
+                Console.WriteLine("*******************************************");
+                Console.WriteLine("  LOAN DECLINED YOU HAVE FAILED THE GAME. *");
+                Console.WriteLine("*******************************************");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
+        }
+    }
 }
