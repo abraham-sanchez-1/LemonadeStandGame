@@ -208,6 +208,7 @@ namespace Lemonade_Stand
         }
         public void LemonadeCreation()
         {
+            LemonadeCreationInstructions();
             Console.WriteLine("How many lemons would you like in your lemonade?");
             int lemonPitcherAmount = Convert.ToInt32(Console.ReadLine());   
             player.inventory.lemons.RemoveRange(0,lemonPitcherAmount-1);
@@ -236,7 +237,24 @@ namespace Lemonade_Stand
             number4 = fourthNumber;
             int total = number1 + number2 + number3 + number4;
             return total;
+        }
 
+        public void LemonadeCreationInstructions()
+        {
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("*         Lemonade Creation Menu          *");
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("* To create lemonade, indicate quantity   *");
+            Console.WriteLine("* of each ingredient in prompt below.     *");
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("*         Your Lemons: {0}                *", player.inventory.lemons.Count);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*         Your Sugar: {0}                 *", player.inventory.sugarCubes.Count);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*         Your Ice: {0}                   *", player.inventory.iceCubes.Count);
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*         Your Cups: {0}                  *", player.inventory.cups.Count);
+            Console.WriteLine("*******************************************");
         }
         //public void LemonadeCreationMenu(int index)
         //{
