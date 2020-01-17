@@ -73,9 +73,11 @@ namespace Lemonade_Stand
 
         public void StoreVisit()
         {
+            Console.Clear();
+            int userInput = 0; 
             //Going to the store
             StoreMenu();
-            int userInput = Convert.ToInt32(Console.ReadLine());
+            int.TryParse(Console.ReadLine(), out userInput);
             switch (userInput)
             {
                 case 1:
@@ -123,8 +125,15 @@ namespace Lemonade_Stand
                     Console.ReadLine();
                     Console.Clear();
                     break;
+                case 6:
+                    Console.WriteLine("Successfully added 10 Dollars to your balance.");
+                    player.wallet.Money += 10.00;
+                    Console.Clear();
+                    StoreVisit();
+                    break; 
                 default:
                     Console.WriteLine("Selection was invalid, try again!");
+                    Console.Clear(); 
                     StoreVisit();
                     break;
             }
@@ -137,7 +146,7 @@ namespace Lemonade_Stand
             Console.WriteLine("The Weather is: {0}", day.weather.condition);
             Console.WriteLine("The Temperature is: {0}", day.weather.temperature);
             populateCustomers();
-
+            SalesSummary();
         }
 
         public void populateCustomers()
