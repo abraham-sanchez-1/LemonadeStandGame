@@ -164,8 +164,24 @@ namespace Lemonade_Stand
             Console.WriteLine("Day: {0}", currentDay);
             Console.WriteLine("The Weather is: {0}", day.weather.condition);
             Console.WriteLine("The Temperature is: {0}", day.weather.temperature);
+            Console.WriteLine("Click to continue");
+            Console.Read();
+
             populateCustomers();
             SalesSummary();
+        }
+        public void ReportWeather()
+        {
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("*       Weather Report for the day        *");
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("*         Day:               {0}          *", currentDay);
+            Console.WriteLine("*         Weather condition: {0}       *", day.weather.condition);
+            Console.WriteLine("          Temperature is:    {0}F degrees *", day.weather.temperature);
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("Click to continue");
+            Console.Read();
+
         }
 
         public void populateCustomers()
@@ -244,7 +260,7 @@ namespace Lemonade_Stand
             Console.WriteLine("*                 {0}                     *", player.pitcher.pitcherTasteScore);
             Console.WriteLine("*******************************************");
             Console.WriteLine("Click to continue");
-            Console.ReadLine();
+            Console.Read();
         }
 
         public void StoreMenu()
@@ -302,14 +318,14 @@ namespace Lemonade_Stand
             }
 
         }
-        public int SugarAmount()
+        public int SugarAmount();
         {
             int userInput;
             bool isUserInputValid = false;
             do
             {
 
-                Console.WriteLine("How many sugar cubes would you like to add?");
+                Console.Write("How many sugar cubes would you like to add?");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
