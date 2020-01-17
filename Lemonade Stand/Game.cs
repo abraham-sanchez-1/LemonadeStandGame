@@ -383,5 +383,29 @@ namespace Lemonade_Stand
             Console.WriteLine("*         Your Cups: {0}                  *", player.inventory.cups.Count);
             Console.WriteLine("*******************************************");
         }
+
+        public void bankLoanInterface()
+        {
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("*        YOU ARE OUT OF MONEY.            *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*      LOAN OPTIONS ARE AVALIBLE.         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*    1.) $100   APR: 1.5%                 *");
+            Console.WriteLine("*        DAILY PAYMENT OF: 10.00          *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*                                         *");
+            Console.WriteLine("*******************************************");
+        }
     }
 }
