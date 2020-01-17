@@ -173,7 +173,7 @@ namespace Lemonade_Stand
                 if (day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
                 {
                     Console.WriteLine("{0} purchased your Lemonade!", day.customers[i].name);
-                    player.pitcher.cupsLeftInPitcher -= +1;
+                    player.pitcher.cupsLeftInPitcher -= 1;
                     player.wallet.Money += player.pitcher.setCupPrice;  
                 }
                 else 
