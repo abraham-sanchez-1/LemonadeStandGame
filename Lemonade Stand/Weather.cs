@@ -23,7 +23,7 @@ namespace Lemonade_Stand
         {
             condition = "null";
             temperature = 1;
-            weatherConditions = new List<string>() { "sunny", "overcast","snow","rain", "hail" };
+            weatherConditions = new List<string>() { "sunny", "overcast","rain","hail", "snow" };
             predictedForecast = "placeholder";
         }
         
@@ -38,19 +38,19 @@ namespace Lemonade_Stand
                     break;
                 case 1:
                     condition = weatherConditions[1];
-                    temperature = randomTemperature.Next(55, 70);
+                    temperature = randomTemperature.Next(60, 80);
                     break;
                 case 2:
                     condition = weatherConditions[2];
-                    temperature = randomTemperature.Next(1, 32);
+                    temperature = randomTemperature.Next(40, 60);
                     break;
                 case 3:
                     condition = weatherConditions[3];
-                    temperature = randomTemperature.Next(45, 65);
+                    temperature = randomTemperature.Next(20, 40);
                     break;
                 case 4:
                     condition = weatherConditions[4];
-                    temperature = randomTemperature.Next(20, 32);
+                    temperature = randomTemperature.Next(0, 20);
                     break;
                 case 5:
                     randomWeatherEvent();

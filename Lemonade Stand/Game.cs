@@ -52,6 +52,7 @@ namespace Lemonade_Stand
                 currentDay++;
                 purchaseCount = 0;
                 moneyGains = 0;
+                day.customers.Count();
             }
             if (currentDay > userSelectedDayAmount)
             {
@@ -179,49 +180,87 @@ namespace Lemonade_Stand
                     day.customers.Add(new Customer("Customers" + i));
                 }
             }
-            if (day.weather.condition == "hail" && day.weather.temperature <= 32)
+            else if (day.weather.condition == "sunny" && day.weather.temperature <90)
+            {
+                for (int i = 0; i < 70; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            else if (day.weather.condition == "overcast" && day.weather.temperature >= 70)
+            {
+                for (int i = 0; i < 60; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            else if (day.weather.condition == "overcast" && day.weather.temperature < 70)
+            {
+                for (int i = 0; i < 40; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            else if (day.weather.condition == "rain" && day.weather.temperature >= 50)
+            {
+                for (int i = 0; i < 30; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            else if (day.weather.condition == "rain" && day.weather.temperature < 50)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            else if (day.weather.condition == "hail" && day.weather.temperature >= 30)
             {
                 for (int i = 0; i < 15; i++)
                 {
                     day.customers.Add(new Customer("Customers" + i));
                 }
             }
-            if (day.weather.condition == "overcast" && day.weather.temperature <= 70)
-            {
-                for (int i = 0; i < 55; i++)
-                {
-                    day.customers.Add(new Customer("Customers" + i));
-                }
-            }
-            if (day.weather.condition == "snow" && day.weather.temperature <= 32)
+            else if (day.weather.condition == "hail" && day.weather.temperature < 30)
             {
                 for (int i = 0; i < 10; i++)
                 {
                     day.customers.Add(new Customer("Customers" + i));
                 }
             }
-            if (day.weather.condition == "rain" && day.weather.temperature <= 65)
+            else if (day.weather.condition == "snow" && day.weather.temperature >= 10)
             {
-                for (int i = 0; i < 25; i++)
+                for (int i = 0; i < 7; i++)
+                {
+                    day.customers.Add(new Customer("Customers" + i));
+                }
+            }
+            else if (day.weather.condition == "snow" && day.weather.temperature < 10)
+            {
+                for (int i = 0; i < 3; i++)
                 {
                     day.customers.Add(new Customer("Customers" + i));
                 }
             }
             for (int i = 0; i < day.customers.Count; i++)
             {
-
-                if (day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
+                if (player.inventory.cups.Count > 0 && day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
                 {
                     purchaseCount++;
                     player.pitcher.cupsLeftInPitcher -= 1;
                     player.wallet.Money += player.pitcher.setCupPrice;
                     moneyGains += player.pitcher.setCupPrice;
                     player.inventory.cups.RemoveAt(0);
-                    if (player.inventory.cups.Count == 0)
-                    {
-                        Console.WriteLine("You have run out cups to serve your lemonade!");
-                        break;
-                    }
+                    
+                }
+                else if (player.inventory.cups.Count == 0)
+                {
+                    Console.WriteLine("You have run out cups to serve your lemonade!");
+                    Console.WriteLine("");
+                    Console.ReadLine();
+                    Console.Clear();
+                    break;
                 }
             }
         }
@@ -326,16 +365,7 @@ namespace Lemonade_Stand
             return userInput;
         }
 
-        public int AddFourNumbers(int firstNumber, int secondNumber, int thirdNumber, int fourthNumber)
-        {
-            int number1, number2, number3, number4;
-            number1 = firstNumber;
-            number2 = secondNumber;
-            number3 = thirdNumber;
-            number4 = fourthNumber;
-            int total = number1 + number2 + number3 + number4;
-            return total;
-        }
+
 
 
         public void bankLoanInterface()
