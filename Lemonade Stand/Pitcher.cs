@@ -12,6 +12,7 @@ namespace Lemonade_Stand
         public int cupsLeftInPitcher;
         public int pitcherTasteScore;
 
+        public double setCupPrice;
 
         //Pitcher Constructor 
         public Pitcher()

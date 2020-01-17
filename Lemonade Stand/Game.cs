@@ -167,6 +167,20 @@ namespace Lemonade_Stand
                     day.customers.Add(new Customer("Customers" + i));
                 }
             }
+            for (int i = 0; i < day.customers.Count; i++)
+            {
+                Console.WriteLine("{0} is approaching...", day.customers[i].name);
+                if (day.customers[i].tasteScore < player.pitcher.pitcherTasteScore)
+                {
+                    Console.WriteLine("{0} purchased your Lemonade!", day.customers[i].name);
+                    player.pitcher.cupsLeftInPitcher -= +1;
+                    player.wallet.Money += player.pitcher.setCupPrice;  
+                }
+                else 
+                {
+                    Console.WriteLine("{0} said your drink was trash..", day.customers[i].name);
+                }
+            }
 
         }
         public void SalesSummary()
@@ -187,7 +201,7 @@ namespace Lemonade_Stand
             Console.WriteLine("*                                         *");
             Console.WriteLine("*4.)+5 CUPS 5.00            Your Cups: {0}*", player.inventory.cups.Count);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*5.) EXIT STORE                           *");
+            Console.WriteLine("*5.) EXIT STORE             Wallet: ${0}  *", player.wallet.Money);
             Console.WriteLine("*                                         *");
             Console.WriteLine("*******************************************");
         }
@@ -203,8 +217,8 @@ namespace Lemonade_Stand
             int iceCubePitcherAmount = Convert.ToInt32(Console.ReadLine());
             player.inventory.iceCubes.RemoveRange(0, iceCubePitcherAmount);
             Console.WriteLine("Set price of individual cups");
-            double setCupPrice = Convert.ToDouble(Console.ReadLine());
-            int priceDeviance = Convert.ToInt32(Math.Abs(player.recipe.pricePerCup - setCupPrice));
+            player.pitcher.setCupPrice = Convert.ToDouble(Console.ReadLine());
+            int priceDeviance = Convert.ToInt32(Math.Abs(player.recipe.pricePerCup - player.pitcher.setCupPrice));
             int lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
             int iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
             int sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
