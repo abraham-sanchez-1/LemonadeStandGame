@@ -83,19 +83,19 @@ namespace Lemonade_Stand
 
         public int SelectDays()
         {
-            Console.WriteLine("How many days would you like to play?\n(7)\n(14)\n(30)");
-            Console.Write("Please tell me: ");
+            Console.WriteLine("How many days would you like to play?\n1) 7 Days\n2) 14 Days\n3) 30 Days");
+            Console.Write("Enter Selection: ");
             int userInput = 0;
             int.TryParse(Console.ReadLine(), out userInput);
             switch (userInput)
             {
-                case 7:
+                case 1:
                     userInput = 7;
                     return userInput;
-                case 14:
+                case 2:
                     userInput = 14;
                     return userInput;
-                case 30:
+                case 3:
                     userInput = 30;
                     return userInput;
                 default:

@@ -54,13 +54,13 @@ namespace Lemonade_Stand
             Console.WriteLine("* better the lemonade, the more customers *");
             Console.WriteLine("* you will have purchase from you!        *");
             Console.WriteLine("*******************************************");
-            Console.WriteLine("*         Your Lemons: {0}                *", player.inventory.lemons.Count);
+            Console.WriteLine("*         Your Lemons Inventory: {0}      *", player.inventory.lemons.Count);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*         Your Sugar: {0}                 *", player.inventory.sugarCubes.Count);
+            Console.WriteLine("*         Your Sugar Inventory:  {0}      *", player.inventory.sugarCubes.Count);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*         Your Ice: {0}                   *", player.inventory.iceCubes.Count);
+            Console.WriteLine("*         Your Ice Inventory:    {0}      *", player.inventory.iceCubes.Count);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*         Your Cups: {0}                  *", player.inventory.cups.Count);
+            Console.WriteLine("*         Your Cups Inventory:   {0}      *", player.inventory.cups.Count);
             Console.WriteLine("*******************************************");
         }
         public static double AddFourNumbers(double firstNumber, double secondNumber, double thirdNumber, double fourthNumber)
