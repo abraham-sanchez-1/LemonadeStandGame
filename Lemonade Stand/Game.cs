@@ -2,35 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Media;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Lemonade_Stand
 {
     class Game
     {
-        //member variable
+        //Declared Public Variables
         public Player player;
-        public double timeInvolved;
-        public bool userInputValid = false;
-        public double potentialLoanAmount;
-        public double paidBank = 0;
-        public double dailyPayment;
-        public double interestRate = .05;
         public Store store;
         public Day day;
-        
-        public int purchaseCount;
-        public double moneyGains;
+
 
         public List<Day> days;
 
-        public int currentDay = 1;
+        public bool userInputValid = false, hasBankLoan = false; 
+        
+        public double potentialLoanAmount, paidBank = 0, dailyPayment, interestRate = .05, timeInvolved, moneyGains;
 
-        public bool hasBankLoan = false;
-        //constructor
+        public int currentDay = 1, purchaseCount; 
+
+        //Public Game Constructor Creating New Game
         public Game()
         {
-            
             player = new Player("Bobby");
             store = new Store();
             days = new List<Day>();
@@ -63,7 +59,7 @@ namespace Lemonade_Stand
                 Console.ReadLine();
                 Environment.Exit(0);
             }
-            else if (player.wallet.Money < 1.00)
+            else if (player.wallet.Money <= 1.00)
             {
                 bankLoanInterface();
             }
@@ -110,8 +106,6 @@ namespace Lemonade_Stand
                         player.inventory.lemons.Add(new Lemon());
                     }
                     player.wallet.Money -= 2.50;
-                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
-                    Console.Clear();
                     StoreVisit();
                     break;
                 case 2:
@@ -120,8 +114,6 @@ namespace Lemonade_Stand
                         player.inventory.sugarCubes.Add(new SugarCube());
                     }
                     player.wallet.Money -= 1.50;
-                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
-                    Console.Clear();
                     StoreVisit();
                     break;
                 case 3:
@@ -130,8 +122,6 @@ namespace Lemonade_Stand
                         player.inventory.iceCubes.Add(new IceCube());
                     }
                     player.wallet.Money -= 2.50;
-                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
-                    Console.Clear();
                     StoreVisit();
                     break;
                 case 4:
@@ -140,13 +130,10 @@ namespace Lemonade_Stand
                         player.inventory.cups.Add(new Cup());
                     }
                     player.wallet.Money -= 5.00;
-                    Console.WriteLine("Money Left: {0}", player.wallet.Money);
                     Console.Clear();
                     StoreVisit();
                     break;
                 case 5:
-                    Console.WriteLine("Thank you for visiting the store!");
-                    Console.ReadLine();
                     Console.Clear();
                     break;
                 case 6:
@@ -156,7 +143,6 @@ namespace Lemonade_Stand
                     StoreVisit();
                     break;
                 default:
-                    Console.WriteLine("Selection was invalid, try again!");
                     Console.Clear();
                     StoreVisit();
                     break;
@@ -173,7 +159,11 @@ namespace Lemonade_Stand
         
         public void populateCustomers()
         {
-            if (day.weather.condition == "sunny" && day.weather.temperature >= 90)
+            if (player.wallet.Money <= 1.00)
+            {
+                bankLoanInterface();
+            }
+            else if (day.weather.condition == "sunny" && day.weather.temperature >= 90)
             {
                 for (int i = 0; i < 80; i++)
                 {
@@ -268,14 +258,14 @@ namespace Lemonade_Stand
         public void LemonadeCreation()
         {
             userInterface.LemonadeCreationInstructions(player);
-            int lemonPitcherAmount = LemonAmount();
-            int sugarCubePitcherAmount = SugarAmount();
-            int iceCubePitcherAmount = IceAmount();
-            int setCupPrice = SetPriceOfCup();
-            int priceDeviance = Math.Abs(player.recipe.pricePerCup - player.pitcher.setCupPrice);
-            int lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
-            int iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
-            int sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
+            double lemonPitcherAmount = LemonAmount();
+            double sugarCubePitcherAmount = SugarAmount();
+            double iceCubePitcherAmount = IceAmount();
+            double setCupPrice = SetPriceOfCup();
+            double priceDeviance = Math.Abs(player.recipe.pricePerCup - player.pitcher.setCupPrice);
+            double lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
+            double iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
+            double sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
             player.pitcher.pitcherTasteScore = 50 - userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, setCupPrice);
         }
         public int LemonAmount()
@@ -350,15 +340,15 @@ namespace Lemonade_Stand
             }
 
         }
-        public int SetPriceOfCup()
+        public double SetPriceOfCup()
         {
-            int userInput;
+            double userInput;
             bool isUserInputValid = false;
             do
             {
 
-                Console.Write("Set price of individual cups:\n(Please select a whole dollar amount)");
-                isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
+                Console.Write("Set price of individual cups: ");
+                isUserInputValid = double.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
             player.pitcher.setCupPrice = userInput;
@@ -370,7 +360,7 @@ namespace Lemonade_Stand
 
         public void bankLoanInterface()
         {
-            
+            Console.Clear();
             do
             {
                 Console.WriteLine("*******************************************");
@@ -383,7 +373,7 @@ namespace Lemonade_Stand
                 Console.Write("The Amount: $");
                 userInputValid = double.TryParse(Console.ReadLine(), out potentialLoanAmount);
             } while (userInputValid == false);
-            if (potentialLoanAmount > 10000)
+            if (potentialLoanAmount <= 10000)
             {
                 timeInvolved = 6;
                 dailyPayment = potentialLoanAmount * interestRate * timeInvolved;
@@ -405,7 +395,7 @@ namespace Lemonade_Stand
             else
             {
                 Console.WriteLine("*******************************************");
-                Console.WriteLine("  LOAN DECLINED YOU HAVE FAILED THE GAME. *");
+                Console.WriteLine("* LOAN DECLINED YOU HAVE FAILED THE GAME. *");
                 Console.WriteLine("*******************************************");
                 Console.ReadLine();
                 Environment.Exit(0);
@@ -413,14 +403,26 @@ namespace Lemonade_Stand
         }
         public void titleMenu()
         {
-
+            SoundPlayer player = new SoundPlayer();
+            player.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\Barbarian - Pierlo.wav";
+            player.Play();
             Console.Title = "YOUR LEMONADE STAND V1";
-            Console.WriteLine("db    db   .d88b.  db    db d8888b.      db      d88888b .88b  d88.  .d88b.  d8b   db  .d8b.  d8888b. d88888b      .d8888. d888888b  .d8b.  d8b   db d8888b. ");
-            Console.WriteLine("`8b  d8'  .8P  Y8. 88    88 88  `8D      88      88'     88'YbdP`88 .8P  Y8. 888o  88 d8' `8b 88  `8D 88'          88'  YP `~~88~~' d8' `8b 888o  88 88  `8D ");
-            Console.WriteLine(" `8bd8'   88    88 88    88 88oobY'      88      88ooooo 88  88  88 88    88 88V8o 88 88ooo88 88   88 88ooooo      `8bo.      88    88ooo88 88V8o 88 88   88 ");
-            Console.WriteLine("   88     88    88 88    88 88`8b        88      88~~~~~ 88  88  88 88    88 88 V8o88 88~~~88 88   88 88~~~~~        `Y8b.    88    88~~~88 88 V8o88 88   88 ");
-            Console.WriteLine("   88     `8b  d8' 88b  d88 88 `88.      88booo. 88.     88  88  88 `8b  d8' 88  V888 88   88 88  .8D 88.          db   8D    88    88   88 88  V888 88  .8D ");
-            Console.WriteLine("   YP      `Y88P'  ~Y8888P' 88   YD      Y88888P Y88888P YP  YP  YP  `Y88P'  VP   V8P YP   YP Y8888D' Y88888P      `8888Y'    YP    YP   YP VP   V8P Y8888D' ");
+            Console.WriteLine("db    db   .d88b.  db    db d8888b.     ");
+            Console.WriteLine("`8b  d8'  .8P  Y8. 88    88 88  `8D     ");
+            Console.WriteLine(" `8bd8'   88    88 88    88 88oobY'     ");
+            Console.WriteLine("   88     88    88 88    88 88`8b       ");
+            Console.WriteLine("   88     `8b  d8' 88b  d88 88 `88.     ");
+            Console.WriteLine("   YP      `Y88P'  ~Y8888P' 88   YD     ");
+            Console.WriteLine("                                        ");
+            Console.WriteLine("8    8888 8b   d8 .d88b. 8b  8    db    888b. 8888");
+            Console.WriteLine("8    8www 8YbmdP8 8P  Y8 8Ybm8   dPYb   8   8 8www ");
+            Console.WriteLine("8    8    8     8 8b  d8 8   8  dPwwYb  8   8 8 ");
+            Console.WriteLine("8888 8888 8     8 `Y88P' 8   8 dP    Yb 888P' 8888");
+            Console.WriteLine("                                         ");
+            Console.WriteLine(".d88b. 88888    db     8b  8  888b. ");
+            Console.WriteLine("YPwww.   8     dPYb    8Ybm8  8   8 ");
+            Console.WriteLine("   d8    8    dP wYb   8  8   8   8");
+            Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P ");
             Console.ReadLine();
             Console.Clear();
         }

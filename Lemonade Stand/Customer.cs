@@ -8,14 +8,13 @@ namespace Lemonade_Stand
 {
     public class Customer
     {
-        //Declaring Variables
+        //Declaring Public Variables
         public string name;
-        public int reputation = 100;
-        public int tasteScore;
+        public int reputation = 100, tasteScore; 
 
         Random tasteScoreRandom = new Random(); 
 
-        //Customer Constructor
+        //Public Customer Constructor Sets Name, and Randomizes Taste Score
         public Customer(string name)
         {
             this.name = name;

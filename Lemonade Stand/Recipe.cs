@@ -9,12 +9,10 @@ namespace Lemonade_Stand
 
     public class Recipe
     {
-        //Declaring Variables
-        public int amountOfLemons, amountOfSugarCubes, amountOfIceCubes;
+        //Declaring Public Integer Variables
+        public int amountOfLemons, amountOfSugarCubes, amountOfIceCubes, pricePerCup; 
 
-        public int pricePerCup; 
-
-        //constructor
+        //Public Recipe Constructor
         public Recipe()
         {
             amountOfLemons = 3;
@@ -22,9 +20,5 @@ namespace Lemonade_Stand
             amountOfIceCubes = 12;
             pricePerCup = 2;
         }
-
-        //member methods
-
-        
     }
 }

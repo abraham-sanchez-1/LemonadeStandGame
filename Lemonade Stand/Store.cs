@@ -8,9 +8,7 @@ namespace Lemonade_Stand
 {
     class Store
     {
-        //Declaring Variables
+        //Declaring Public Double Variables
         public double pricePerLemon = .50, pricePerSugarCube = .30, pricePerIceCube = .50, pricePerCup = 1.00;
-
-
     }
 }

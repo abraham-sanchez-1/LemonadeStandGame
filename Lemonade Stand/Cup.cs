@@ -8,15 +8,10 @@ namespace Lemonade_Stand
 {
     public class Cup : Item
     {
-
-        //member variable
-
-        //constructor
+        //Constructor Holding Name
         public Cup()
         {
             name = "cup";
         }
-        //member methods
-
     }
 }

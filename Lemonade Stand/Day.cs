@@ -8,18 +8,15 @@ namespace Lemonade_Stand
 {
     public class Day
     {
-        //member variable
+        //Public Declaration of Variables 
         public Weather weather;
         public List<Customer> customers;
 
-        //constructor
-
+        //Public Constructor Creating New Weather and New Customer List
         public Day()
         {
             weather = new Weather();
             customers = new List<Customer>();
         }
-
-        //member methods
     }
 }
