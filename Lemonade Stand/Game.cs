@@ -363,7 +363,6 @@ namespace Lemonade_Stand
             bool isUserInputValid = false;
             do
             {
-
                 Console.Write("Set price of individual cups: ");
                 isUserInputValid = double.TryParse(Console.ReadLine(), out userInput);
 
@@ -404,7 +403,6 @@ namespace Lemonade_Stand
                 Console.WriteLine("*     FOR SIX DAYS.                       *");
                 Console.WriteLine("*******************************************");
                 hasBankLoan = true;
-                currentDay = currentDay + 30;
                 player.wallet.Money += potentialLoanAmount;
                 Console.ReadLine();
                 StoreVisit();
