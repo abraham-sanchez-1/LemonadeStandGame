@@ -141,7 +141,7 @@ namespace Lemonade_Stand
                     StoreVisit();
                     break;
                 case 4:
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 10; i++)
                     {
                         player.inventory.cups.Add(new Cup());
                     }
@@ -152,6 +152,7 @@ namespace Lemonade_Stand
                 case 5:
                     Console.Clear();
                     break;
+                    //This is a developer tool only, meant for testing
                 case 6:
                     Console.WriteLine("Successfully added 10 Dollars to your balance.");
                     player.wallet.Money += 10.00;
@@ -282,7 +283,7 @@ namespace Lemonade_Stand
             double lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
             double iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
             double sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
-            player.pitcher.pitcherTasteScore = 50 - userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, setCupPrice);
+            player.pitcher.pitcherTasteScore = 100 - (userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, setCupPrice)*5);
         }
         public int LemonAmount()
         {

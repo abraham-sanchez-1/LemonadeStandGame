@@ -11,6 +11,8 @@ namespace Lemonade_Stand
         public static int currentDay = 1;
         public static void ReportWeather(Weather weather, int currentDay)
         {
+
+            Console.Clear();
             Console.WriteLine("*******************************************");
             Console.WriteLine("*       Weather Report for the day        *");
             Console.WriteLine("*******************************************");
@@ -35,7 +37,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("*                                         *");
                 Console.WriteLine("*3.)+5 ICE CUBES 2.50        Your Ice: {0}*", player.inventory.iceCubes.Count);
                 Console.WriteLine("*                                         *");
-                Console.WriteLine("*4.)+5 CUPS 5.00            Your Cups: {0}*", player.inventory.cups.Count);
+                Console.WriteLine("*4.)+10 CUPS 5.00           Your Cups: {0}*", player.inventory.cups.Count);
                 Console.WriteLine("*                                         *");
                 Console.WriteLine("*5.) EXIT STORE             Wallet: ${0}  *", player.wallet.Money);
                 Console.WriteLine("*                                         *");
@@ -43,11 +45,14 @@ namespace Lemonade_Stand
         }
         public static void LemonadeCreationInstructions(Player player)
         {
+
             Console.WriteLine("*******************************************");
             Console.WriteLine("*         Lemonade Creation Menu          *");
             Console.WriteLine("*******************************************");
             Console.WriteLine("* To create lemonade, indicate quantity   *");
-            Console.WriteLine("* of each ingredient in prompt below.     *");
+            Console.WriteLine("* of each ingredient in prompt below. The *");
+            Console.WriteLine("* better the lemonade, the more customers *");
+            Console.WriteLine("* you will have purchase from you!        *");
             Console.WriteLine("*******************************************");
             Console.WriteLine("*         Your Lemons: {0}                *", player.inventory.lemons.Count);
             Console.WriteLine("*                                         *");
