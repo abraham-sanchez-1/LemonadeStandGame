@@ -8,13 +8,13 @@ namespace Lemonade_Stand
 {
     public class Inventory
     {
-        //member variables
+        //Declaring Public Variables
         public List<Lemon> lemons;
         public List<IceCube> iceCubes;
         public List<Cup> cups;
         public List<SugarCube> sugarCubes;
 
-        //constructor
+        //Inventory Constructor Creates A New Public List
         public Inventory()
         {
             lemons = new List<Lemon>();
@@ -22,9 +22,5 @@ namespace Lemonade_Stand
             sugarCubes = new List<SugarCube>();
             cups = new List<Cup>();
         }
-
-        //member methods
-
-
     }
 }

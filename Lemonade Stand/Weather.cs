@@ -8,7 +8,7 @@ namespace Lemonade_Stand
 {
     public class Weather
     {
-        //member variable
+        //Declared Public Variables
         public string condition, predictedForecast;
 
         public int temperature;
@@ -18,13 +18,13 @@ namespace Lemonade_Stand
         Random randomTemperature = new Random();
         Random randomWeatherCondition = new Random();
 
-        //constructor
+        //Weather Constructor 
         public Weather()
         {
             condition = "null";
+            predictedForecast = "placeholder";
             temperature = 1;
             weatherConditions = new List<string>() { "sunny", "overcast","rain","hail", "snow" };
-            predictedForecast = "placeholder";
         }
         
         public void randomWeatherEvent()
