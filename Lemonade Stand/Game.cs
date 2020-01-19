@@ -53,20 +53,22 @@ namespace Lemonade_Stand
                 purchaseCount = 0;
                 moneyGains = 0;
                 day.customers.Count();
+                if (currentDay > userSelectedDayAmount)
+                {
+                    //Issue with entering this section
+                    Console.Clear();
+                    Console.WriteLine("You have succesfully completed Lemonade Stand!");
+                    Console.WriteLine("Developed by: Abraham Sanchez and Marcus Johnson!");
+                    Console.WriteLine("Thank you for playing!");
+                    Console.ReadLine();
+                    Environment.Exit(0);
+                }
+                else if (player.wallet.Money < 1.00)
+                {
+                    bankLoanInterface();
+                }
             }
-            if (currentDay > userSelectedDayAmount)
-            {
-                Console.Clear();
-                Console.WriteLine("You have succesfully completed Lemonade Stand!");
-                Console.WriteLine("Developed by: Abraham Sanchez and Marcus Johnson!");
-                Console.WriteLine("Thank you for playing!");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
-            else if (player.wallet.Money < 1.00)
-            {
-                bankLoanInterface();
-            }
+           
         }
 
         public int SelectDays()
