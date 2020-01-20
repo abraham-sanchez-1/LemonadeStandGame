@@ -92,7 +92,7 @@ namespace Lemonade_Stand
                     StoreVisit();
                     break;
                 case 2:
-                    //callingBankFunctionHere
+                    //bank creation
                     break;
                 case 3:
                     weatherReport();
