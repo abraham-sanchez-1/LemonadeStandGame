@@ -26,7 +26,7 @@ namespace Lemonade_Stand
         }
         public static void StoreMenu(Player player)
         {
-            Console.Clear();
+                Console.Clear();
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*           WELCOME TO YOUR STORE           *");
                 Console.WriteLine("*********************************************");
@@ -89,7 +89,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("Your day was short due to shortage of cups!");
             }
             Console.WriteLine("Click to continue");
-            Console.ReadLine();
+            Console.ReadKey(true);
             if (hasBankLoan == true)
             {
                 player.wallet.Money -= dailyPayment;
