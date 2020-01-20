@@ -44,7 +44,6 @@ namespace Lemonade_Stand
                 day.weather.randomWeatherEvent();
                 StoreVisit();
                 SimulateDay();
-                Console.ReadLine();
                 //*UserInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);*/
                 currentDay++;
                 purchaseCount = 0;
@@ -75,7 +74,7 @@ namespace Lemonade_Stand
                 Console.ReadLine();
                 Environment.Exit(0);
             }
-            else if (player.wallet.Money <= 1.00)
+            else if (player.wallet.Money <= 1.50)
             {
                 bankLoanInterface();
             }
@@ -90,6 +89,11 @@ namespace Lemonade_Stand
             // DO NOT REMOVE
             Console.Write("Choose: ");
             int.TryParse(Console.ReadLine(), out userInput);
+            //if statement checking wallet Money
+            if (player.wallet.Money < 1.5 )
+            {
+                bankLoanInterface();
+            }
             switch (userInput)
             {
                 case 1:
@@ -351,9 +355,9 @@ namespace Lemonade_Stand
 
         public void bankLoanInterface()
         {
-            Console.Clear();
             do
             {
+                Console.Clear();
                 Console.WriteLine("*******************************************");
                 Console.WriteLine("*         YOU ARE OUT OF MONEY.           *");
                 Console.WriteLine("*******************************************");
@@ -413,7 +417,6 @@ namespace Lemonade_Stand
             Console.WriteLine("YPwww.   8     dPYb    8Ybm8  8   8 ");
             Console.WriteLine("   d8    8    dP wYb   8  8   8   8");
             Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P \n");
-            Console.WriteLine("Click enter to continue");
             Console.ReadLine();
             
         }
