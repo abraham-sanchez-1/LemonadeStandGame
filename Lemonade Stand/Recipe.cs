@@ -18,7 +18,8 @@ namespace Lemonade_Stand
             amountOfLemons = 3;
             amountOfSugarCubes = 5;
             amountOfIceCubes = 8;
-            pricePerCup = 2;
+            //in an ideal world, a free lemonade is the best lemonade and therefore recipe is set to zero
+            pricePerCup = 0;
         }
     }
 }

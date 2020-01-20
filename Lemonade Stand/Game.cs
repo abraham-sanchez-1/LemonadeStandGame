@@ -329,10 +329,8 @@ namespace Lemonade_Stand
             bool isUserInputValid = false;
             do
             {
-
                 Console.Write("How many lemons would you like to add: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
-
             } while (isUserInputValid == false);
             if (player.inventory.lemons.Count >= userInput)
             {
@@ -344,7 +342,6 @@ namespace Lemonade_Stand
                 Console.WriteLine("You don't have enough lemons!\nLemonade will be created without any lemons :(");
                 Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
-                 
                 return userInput = 0;
             }
 

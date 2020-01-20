@@ -45,8 +45,11 @@ namespace Lemonade_Stand
             Console.WriteLine("*       Weather Report for the day        *");
             Console.WriteLine("*******************************************");
             Console.WriteLine("*         Day:               {0}         ", currentDay);
-            Console.WriteLine("*         Forcasted condition: {0}       ", weather.predictedForecast);
-            Console.WriteLine("          Temperature is:    {0}F degrees ", weather.temperature);
+            Console.WriteLine("*         Weather Condition: {0}         ", weather.condition);
+            Console.WriteLine("*         Temperature is:    {0}F degrees ", weather.temperature);
+            Console.WriteLine("*                                         ");
+            Console.WriteLine("*         Forcast for tomorrow: {0}       ", weather.predictedForecast);
+            Console.WriteLine("*                                         ");
             Console.WriteLine("*******************************************");
             Console.WriteLine("\nPress any key...");
             Console.Read();
