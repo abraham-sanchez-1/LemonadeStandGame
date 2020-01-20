@@ -41,8 +41,7 @@ namespace Lemonade_Stand
             int userSelectedDayAmount = userInterface.SelectDays();
             while (currentDay < userSelectedDayAmount || player.wallet.Money < 1.00)
             {
-                playerMenu();
-
+                    
                 if (currentDay > userSelectedDayAmount)
                 {
                     //Issue with entering this section
@@ -77,14 +76,12 @@ namespace Lemonade_Stand
         public void playerMenu()
         {
             int userInputForMenu;
-            bool userInputIsValid = false; 
+            bool isUserInputValid = false;
 
-            do {
-                userInterface.playerMenu(lemonadeCreationSelected);
+            userInterface.playerMenu(lemonadeCreationSelected);
 
-                userInputIsValid = int.TryParse(Console.ReadLine(), out userInputForMenu); 
-     
-            } while (userInputIsValid == false);
+            isUserInputValid = int.TryParse(Console.ReadLine(), out userInputForMenu);
+            
             switch (userInputForMenu)
             {
                 case 1:
@@ -92,7 +89,7 @@ namespace Lemonade_Stand
                     StoreVisit();
                     break;
                 case 2:
-                    //callingBankFunctionHere
+                    bankLoanInterface();
                     break;
                 case 3:
                     weatherReport();
@@ -130,9 +127,10 @@ namespace Lemonade_Stand
                         playerMenu();
                     }
                     break;
+                default:
+                    playerMenu();
+                    break; 
             } 
-          
-            
         }
 
         public void StoreVisit()
@@ -185,6 +183,7 @@ namespace Lemonade_Stand
                     break;
                 case 5:
                     Console.Clear();
+                    playerMenu();
                     break;
                     //This is a developer tool only, meant for testing
                 case 6:
@@ -290,13 +289,18 @@ namespace Lemonade_Stand
                     player.wallet.Money += player.pitcher.setCupPrice;
                     moneyGains += player.pitcher.setCupPrice;
                     player.inventory.cups.RemoveAt(0);
-                    
+                    if (day.customers.Count == i)
+                    {
+                        lemonadeCreationSelected = false;
+                        playerMenu();
+                    }
                 }
                 else if (player.inventory.cups.Count == 0)
                 {
                     Console.WriteLine("You have run out cups to serve your lemonade!\n");
                     Console.ReadLine();
                     Console.Clear();
+                    playerMenu();
                     break;
                 }
             }
@@ -332,10 +336,10 @@ namespace Lemonade_Stand
                 player.inventory.lemons.RemoveRange(0, userInput);
                 return userInput;
             }
-            else
+            else 
             {
                 Console.WriteLine("You don't have enough lemons!");
-                LemonAmount();
+                playerMenu(); 
                 return userInput;
             }
 
@@ -359,7 +363,7 @@ namespace Lemonade_Stand
             else
             {
                 Console.WriteLine("You don't have enough sugar cubes!");
-                SugarAmount();
+                playerMenu();
                 return userInput;
             }
 
@@ -383,7 +387,7 @@ namespace Lemonade_Stand
             else
             {
                 Console.WriteLine("You don't have enough ice cubes!");
-                IceAmount();
+                playerMenu();
                 return userInput;
             }
 
@@ -399,6 +403,8 @@ namespace Lemonade_Stand
 
             } while (isUserInputValid == false);
             player.pitcher.setCupPrice = userInput;
+            lemonadeCreationSelected = true; 
+            playerMenu();
             return userInput;
         }
 
@@ -436,7 +442,7 @@ namespace Lemonade_Stand
                 hasBankLoan = true;
                 player.wallet.Money += potentialLoanAmount;
                 Console.ReadLine();
-                StoreVisit();
+                playerMenu();
             }
             else
             {
@@ -470,8 +476,8 @@ namespace Lemonade_Stand
             Console.WriteLine("YPwww.   8     dPYb    8Ybm8  8   8 ");
             Console.WriteLine("   d8    8    dP wYb   8  8   8   8");
             Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P \n");
-            Console.ReadLine();
-            
+            Console.ReadKey(); 
+            playerMenu();
         }
     }
 }

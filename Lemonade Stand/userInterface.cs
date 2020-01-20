@@ -12,9 +12,6 @@ namespace Lemonade_Stand
 
         public static void playerMenu(bool lemonadeCreationSelected)
         {
-            Console.Clear();
-            do
-            {
                 Console.Clear();
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*   Welcome to YOUR LEMONADE STAND Menu!    *");
@@ -36,13 +33,11 @@ namespace Lemonade_Stand
                 }
                 else if (lemonadeCreationSelected == false)
                 {
-                Console.WriteLine("*                                           *");
+
                 }
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*********************************************");
                 Console.Write("Choice: ");
-                Console.ReadLine(); 
-            } while (lemonadeCreationSelected == false);
         }
         public static void ReportWeather(Weather weather, int currentDay)
         {
@@ -80,7 +75,7 @@ namespace Lemonade_Stand
         }
         public static void LemonadeCreationInstructions(Player player)
         {
-
+            Console.Clear(); 
             Console.WriteLine("*******************************************");
             Console.WriteLine("*         Lemonade Creation Menu          *");
             Console.WriteLine("*******************************************");
