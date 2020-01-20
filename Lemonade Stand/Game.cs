@@ -411,13 +411,13 @@ namespace Lemonade_Stand
             {
                 Console.Clear();
                 Console.WriteLine("*******************************************");
-                Console.WriteLine("*         YOU ARE OUT OF MONEY.           *");
+                Console.WriteLine("*                GET-A-LOAN               *");
                 Console.WriteLine("*******************************************");
                 Console.WriteLine("*                                         *");
                 Console.WriteLine("*    YOU CAN APPLY FOR A LOAN BELOW       *");
                 Console.WriteLine("*                                         *");
                 Console.WriteLine("*******************************************");
-                Console.Write("The Amount: $");
+                Console.Write("The Loan Amount: $");
                 userInputValid = double.TryParse(Console.ReadLine(), out potentialLoanAmount);
             } while (userInputValid == false);
             if (potentialLoanAmount <= 10000)
@@ -441,7 +441,8 @@ namespace Lemonade_Stand
             else
             {
                 Console.WriteLine("*******************************************");
-                Console.WriteLine("* LOAN DECLINED YOU HAVE FAILED THE GAME. *");
+                Console.WriteLine("*             LOAN DECLINED               *");
+                Console.WriteLine("*        ANYTHING OVER $10,000 FAILS.     *");
                 Console.WriteLine("*******************************************");
                 Console.ReadLine();
                 Environment.Exit(0);
