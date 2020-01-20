@@ -37,18 +37,19 @@ namespace Lemonade_Stand
         public void NewGame()
         {
             titleMenu();
-            
-            int userSelectedDayAmount = SelectDays();
+
+            int userSelectedDayAmount = userInterface.SelectDays();
             while (currentDay < userSelectedDayAmount || player.wallet.Money < 1.00)
             {
                 day.weather.randomWeatherEvent();
                 StoreVisit();
                 SimulateDay();
-                userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
+                Console.ReadLine();
+                //*UserInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);*/
                 currentDay++;
                 purchaseCount = 0;
                 moneyGains = 0;
-                day.customers.Count();
+                day.customers.Clear();
                 if (currentDay > userSelectedDayAmount)
                 {
                     //Issue with entering this section
@@ -79,31 +80,6 @@ namespace Lemonade_Stand
                 bankLoanInterface();
             }
 
-        }
-
-        public int SelectDays()
-        {
-            Console.WriteLine("How many days would you like to play?\n(7)\n(14)\n(30)");
-            Console.Write("Please tell me: ");
-            int userInput = 0;
-            int.TryParse(Console.ReadLine(), out userInput);
-            switch (userInput)
-            {
-                case 7:
-                    userInput = 7;
-                    return userInput;
-                case 14:
-                    userInput = 14;
-                    return userInput;
-                case 30:
-                    userInput = 30;
-                    return userInput;
-                default:
-                    Console.WriteLine("Selection was invalid, try again!");
-                    Console.Clear();
-                    SelectDays();
-                    return userInput;
-            }
         }
 
         public void StoreVisit()
@@ -141,7 +117,7 @@ namespace Lemonade_Stand
                     StoreVisit();
                     break;
                 case 4:
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 10; i++)
                     {
                         player.inventory.cups.Add(new Cup());
                     }
@@ -152,6 +128,7 @@ namespace Lemonade_Stand
                 case 5:
                     Console.Clear();
                     break;
+                    //This is a developer tool only, meant for testing
                 case 6:
                     Console.WriteLine("Successfully added 10 Dollars to your balance.");
                     player.wallet.Money += 10.00;
@@ -262,8 +239,7 @@ namespace Lemonade_Stand
                 }
                 else if (player.inventory.cups.Count == 0)
                 {
-                    Console.WriteLine("You have run out cups to serve your lemonade!");
-                    Console.WriteLine("");
+                    Console.WriteLine("You have run out cups to serve your lemonade!\n");
                     Console.ReadLine();
                     Console.Clear();
                     break;
@@ -418,7 +394,7 @@ namespace Lemonade_Stand
         public void titleMenu()
         {
             SoundPlayer player = new SoundPlayer();
-            player.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\Barbarian - Pierlo.wav";
+            player.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "Barbarian - Pierlo.wav";
             player.Play();
             Console.Title = "YOUR LEMONADE STAND V1";
             Console.WriteLine("db    db   .d88b.  db    db d8888b.     ");
@@ -436,9 +412,10 @@ namespace Lemonade_Stand
             Console.WriteLine(".d88b. 88888    db     8b  8  888b. ");
             Console.WriteLine("YPwww.   8     dPYb    8Ybm8  8   8 ");
             Console.WriteLine("   d8    8    dP wYb   8  8   8   8");
-            Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P ");
+            Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P \n");
+            Console.WriteLine("Click enter to continue");
             Console.ReadLine();
-            Console.Clear();
+            
         }
     }
 }

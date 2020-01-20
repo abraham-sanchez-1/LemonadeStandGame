@@ -16,8 +16,8 @@ namespace Lemonade_Stand
         public Recipe()
         {
             amountOfLemons = 3;
-            amountOfSugarCubes = 6;
-            amountOfIceCubes = 12;
+            amountOfSugarCubes = 5;
+            amountOfIceCubes = 8;
             pricePerCup = 2;
         }
     }

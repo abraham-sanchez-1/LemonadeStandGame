@@ -18,7 +18,7 @@ namespace Lemonade_Stand
         public Customer(string name)
         {
             this.name = name;
-            tasteScore = tasteScoreRandom.Next(20, 90);
+            tasteScore = tasteScoreRandom.Next(40, 90);
         }
 
 
