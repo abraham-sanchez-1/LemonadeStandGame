@@ -39,7 +39,7 @@ namespace Lemonade_Stand
             titleMenu();
 
             int userSelectedDayAmount = userInterface.SelectDays();
-            while (currentDay < userSelectedDayAmount || player.wallet.Money >= 1.50)
+            while (currentDay <= userSelectedDayAmount && player.wallet.Money >= 1.50)
             {
                 playerMenu();    
                 if (currentDay > userSelectedDayAmount)
@@ -80,7 +80,7 @@ namespace Lemonade_Stand
             bool isRoundOver = false;
             while (!isRoundOver)
             {
-                userInterface.playerMenu(lemonadeCreationSelected);
+                userInterface.playerMenu(lemonadeCreationSelected, currentDay);
 
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInputForMenu);
 
@@ -120,7 +120,7 @@ namespace Lemonade_Stand
                         }
                         break;
                     default:
-                        playerMenu();
+                        
                         break;
                 }
             }
@@ -176,7 +176,6 @@ namespace Lemonade_Stand
                     break;
                 case 5:
                     Console.Clear();
-                    playerMenu();
                     break;
                     //This is a developer tool only, meant for testing
                 case 6:
@@ -285,9 +284,6 @@ namespace Lemonade_Stand
                 }
                 else if (player.inventory.cups.Count == 0)
                 {
-                    Console.WriteLine("You have run out cups to serve your lemonade!\n");
-                    Console.WriteLine("Click any key to continue");
-                    Console.ReadKey();
                     Console.Clear();
                     break;
                 }
@@ -330,7 +326,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("You don't have enough lemons!\nReturning to menu");
                 Console.WriteLine("Click any key to continue");
                 Console.ReadKey();
-                playerMenu(); 
+                 
                 return userInput;
             }
 
@@ -356,7 +352,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("You don't have enough sugar cubes!\nReturning to menu");
                 Console.WriteLine("Click any key to continue");
                 Console.ReadKey();
-                playerMenu();
+                
                 return userInput;
             }
 
@@ -382,7 +378,6 @@ namespace Lemonade_Stand
                 Console.WriteLine("You don't have enough ice cubes!\nReturning to menu");
                 Console.WriteLine("Click any key to continue");
                 Console.ReadKey();
-                playerMenu();
                 return userInput;
             }
 
@@ -433,7 +428,6 @@ namespace Lemonade_Stand
                 hasBankLoan = true;
                 player.wallet.Money += potentialLoanAmount;
                 Console.ReadLine();
-                playerMenu();
             }
             else
             {
@@ -468,7 +462,6 @@ namespace Lemonade_Stand
             Console.WriteLine("   d8    8    dP wYb   8  8   8   8");
             Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P \n");
             Console.ReadKey(); 
-            playerMenu();
         }
     }
 }
