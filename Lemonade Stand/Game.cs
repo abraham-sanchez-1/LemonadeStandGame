@@ -22,7 +22,7 @@ namespace Lemonade_Stand
         
         public double potentialLoanAmount, paidBank = 0, dailyPayment, interestRate = .01, timeInvolved, moneyGains;
 
-        public int currentDay = 1, purchaseCount; 
+        public int currentDay = 1, purchaseCount, userSelectedDayAmount; 
 
         //Public Game Constructor Creating New Game
         public Game()
@@ -38,7 +38,7 @@ namespace Lemonade_Stand
         {
             titleMenu();
 
-            int userSelectedDayAmount = userInterface.SelectDays();
+            userSelectedDayAmount = userInterface.SelectDays();
             while (currentDay < userSelectedDayAmount || player.wallet.Money >= 1.50)
             {
                 playerMenu();    
@@ -103,7 +103,7 @@ namespace Lemonade_Stand
                         if (lemonadeCreationSelected == true)
                         {
                             simulateDay();
-                            userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
+                            userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment, userSelectedDayAmount);
                             isRoundOver = true;
                             day.customers.Clear();
                             purchaseCount = 0;
@@ -505,7 +505,6 @@ namespace Lemonade_Stand
             Console.WriteLine("   d8    8    dP wYb   8  8   8   8");
             Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P' \n");
             Console.ReadKey(); 
-            playerMenu();
         }
     }
 }

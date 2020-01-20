@@ -95,11 +95,12 @@ namespace Lemonade_Stand
             double total = firstNumber + secondNumber + thirdNumber + fourthNumber;
             return total;
         }
-        public static void SalesSummary(Player player, int currentDay, Day day, int purchaseCount, double moneyGains, double paidBank, bool hasBankLoan, double dailyPayment)
+        public static void SalesSummary(Player player, int currentDay, Day day, int purchaseCount, double moneyGains, double paidBank, bool hasBankLoan, double dailyPayment, int userSelectedDayAmount)
         {
             Console.Clear();
             Console.WriteLine("*******************************************");
-            Console.WriteLine("*        Day {0} End: Sales Summary        *", currentDay);
+            Console.WriteLine("*   Day {0}        End: Sales Summary     *", currentDay);
+            Console.WriteLine("*     Of {0}                              *", userSelectedDayAmount);
             Console.WriteLine("*******************************************");
             Console.WriteLine("* {0} customers visited the lemonade stand*", day.customers.Count);
             Console.WriteLine("*                                         *");
@@ -137,28 +138,20 @@ namespace Lemonade_Stand
             bool isUserInputValid = false;
             do
             {
-
-                Console.WriteLine("How many days would you like to play ?\n1) 7 Days\n2) 14 Days\n3) 30 Days");
-                Console.Write("Enter Selection:");
+                Console.Write("How many days would you like to play: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
-            switch (userInput)
+            if (userInput < 7)
             {
-                case 1:
-                    userInput = 7;
-                    return userInput;
-                case 2:
-                    userInput = 14;
-                    return userInput;
-                case 3:
-                    userInput = 30;
-                    return userInput;
-                default:
-                    Console.WriteLine("That selection does not exist!");
-                    Console.Clear();
-                    SelectDays();
-                    return userInput;
+                Console.WriteLine("Thats not possible.");
+                Console.ReadLine(); 
+                SelectDays();
+                return userInput; 
+            }
+            else 
+            {
+                return userInput; 
             }
         }
     }
