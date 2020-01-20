@@ -18,7 +18,7 @@ namespace Lemonade_Stand
 
         public List<Day> days;
 
-        public bool userInputValid = false, hasBankLoan = false; 
+        public bool userInputValid = false, hasBankLoan = false, lemonadeCreationSelected = false; 
         
         public double potentialLoanAmount, paidBank = 0, dailyPayment, interestRate = .05, timeInvolved, moneyGains;
 
@@ -41,10 +41,12 @@ namespace Lemonade_Stand
             int userSelectedDayAmount = userInterface.SelectDays();
             while (currentDay < userSelectedDayAmount || player.wallet.Money < 1.00)
             {
+                playerMenu();
                 day.weather.randomWeatherEvent();
                 StoreVisit();
+                LemonadeCreation();
                 SimulateDay();
-                //*UserInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);*/
+                //*UserInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);*/ 
                 currentDay++;
                 purchaseCount = 0;
                 moneyGains = 0;
@@ -79,6 +81,34 @@ namespace Lemonade_Stand
                 bankLoanInterface();
             }
 
+        }
+        public void playerMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("*********************************************");
+            Console.WriteLine("*   Welcome to YOUR LEMONADE STAND Menu!    *");
+            Console.WriteLine("*********************************************");
+            Console.WriteLine("*                                           *");
+            Console.WriteLine("*1) Goto the Store!                         *");
+            Console.WriteLine("*                                           *");
+            Console.WriteLine("*2) Goto the Bank!                          *");
+            Console.WriteLine("*                                           *");
+            Console.WriteLine("*3) Check the Weather!                      *");
+            Console.WriteLine("*                                           *");
+            Console.WriteLine("*4) Create your Lemonade!                   *");
+            Console.WriteLine("*                                           *");
+            if (lemonadeCreationSelected == true)
+            {
+            Console.WriteLine("*5) Play out your Day!                      *");
+            Console.WriteLine("*                                           *");
+            Console.WriteLine("6) Your End of Day Summary!");
+            }
+            else if (lemonadeCreationSelected == false)
+            {
+            Console.WriteLine("*                                           *");
+            }
+            Console.WriteLine("*                                           *");
+            Console.WriteLine("*********************************************");
         }
 
         public void StoreVisit()
@@ -146,10 +176,13 @@ namespace Lemonade_Stand
             }
         }
 
-        public void SimulateDay()
+        public void weatherReport()
         {
-            LemonadeCreation();
             userInterface.ReportWeather(day.weather, currentDay);
+        }
+        public void SimulateDay()//CANNOT OCCUR IN MENU UNLESS LEMONADE CREATION IS SET
+        {
+            
             populateCustomers();
             userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
         }
@@ -263,6 +296,7 @@ namespace Lemonade_Stand
             double iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
             double sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
             player.pitcher.pitcherTasteScore = 50 - userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, priceDeviance);
+            lemonadeCreationSelected = true; 
         }
         public int LemonAmount()
         {
