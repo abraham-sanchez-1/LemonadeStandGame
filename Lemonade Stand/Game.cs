@@ -20,9 +20,9 @@ namespace Lemonade_Stand
 
         public bool userInputValid = false, hasBankLoan = false, lemonadeCreationSelected = false; 
         
-        public double potentialLoanAmount, paidBank = 0, dailyPayment, interestRate = .05, timeInvolved, moneyGains;
+        public double potentialLoanAmount, paidBank = 0, dailyPayment, interestRate = .01, timeInvolved, moneyGains;
 
-        public int currentDay = 1, purchaseCount; 
+        public int currentDay = 1, purchaseCount, userSelectedDayAmount; 
 
         //Public Game Constructor Creating New Game
         public Game()
@@ -38,8 +38,9 @@ namespace Lemonade_Stand
         {
             titleMenu();
 
-            int userSelectedDayAmount = userInterface.SelectDays();
-            while (currentDay <= userSelectedDayAmount && player.wallet.Money >= 1.50)
+
+            userSelectedDayAmount = userInterface.SelectDays();
+            while (currentDay < userSelectedDayAmount && player.wallet.Money >= 1.50)
             {
                 playerMenu();    
                 if (currentDay > userSelectedDayAmount)
@@ -103,7 +104,7 @@ namespace Lemonade_Stand
                         if (lemonadeCreationSelected == true)
                         {
                             simulateDay();
-                            userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
+                            userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment, userSelectedDayAmount);
                             isRoundOver = true;
                             day.customers.Clear();
                             purchaseCount = 0;
@@ -128,61 +129,99 @@ namespace Lemonade_Stand
 
         public void StoreVisit()
         {
+            int userwWantsLemons;
+            int userWantsSugarCubes;
+            int userWantsIceCubes;
+            int userWantsCups; 
+
+            bool isLemonsCorrect = false;
+            bool isSugarCorrect = false;
+            bool isIceCubesCorrect = false;
+            bool isCupsCorrect = false; 
+
             Console.Clear();
             int userInput = 0;
             userInterface.StoreMenu(player);
             // DO NOT REMOVE
-            Console.Write("Choose: ");
+            Console.Write("Choose the product you want to purchase by #): ");
             int.TryParse(Console.ReadLine(), out userInput);
-            //if statement checking wallet Money
-            if (player.wallet.Money < 1.5 )
-            {
-                bankLoanInterface();
-            }
             switch (userInput)
             {
                 case 1:
-                    for (int i = 0; i < 5; i++)
+                    do
                     {
-                        player.inventory.lemons.Add(new Lemon());
+                        Console.Write("Amount of Lemons: ");
+                        isLemonsCorrect = int.TryParse(Console.ReadLine(), out userwWantsLemons);
+                    } while (isLemonsCorrect == false);
+                    for (int i = 0; i < userwWantsLemons; i++)
+                    {
+                        player.inventory.lemons.Add( new Lemon());
+                        player.wallet.Money -= store.pricePerLemon;
+
+                        if (player.wallet.Money < 1.5)
+                        {
+                            bankLoanInterface();
+                        }
                     }
-                    player.wallet.Money -= 2.50;
                     StoreVisit();
                     break;
                 case 2:
-                    for (int i = 0; i < 5; i++)
+                    do
+                    {
+                        Console.Write("Amount of Sugar-Cubes: ");
+                        isSugarCorrect = int.TryParse(Console.ReadLine(), out userWantsSugarCubes);
+                    } while (isSugarCorrect == false);
+                    for (int i = 0; i < userWantsSugarCubes; i++)
                     {
                         player.inventory.sugarCubes.Add(new SugarCube());
+                        player.wallet.Money -= store.pricePerSugarCube;
+
+                        if (player.wallet.Money < 1.5)
+                        {
+                            bankLoanInterface();
+                        }
                     }
-                    player.wallet.Money -= 1.50;
                     StoreVisit();
                     break;
                 case 3:
-                    for (int i = 0; i < 5; i++)
+                    do
+                    {
+                        Console.Write("Amount of Ice-Cubes: ");
+                        isIceCubesCorrect = int.TryParse(Console.ReadLine(), out userWantsIceCubes);
+                    } while (isIceCubesCorrect == false);
+                    for (int i = 0; i < userWantsIceCubes; i++)
                     {
                         player.inventory.iceCubes.Add(new IceCube());
+                        player.wallet.Money -= store.pricePerIceCube;
+
+                        if (player.wallet.Money < 1.5)
+                        {
+                            bankLoanInterface();
+                        }
+                        
                     }
-                    player.wallet.Money -= 2.50;
                     StoreVisit();
                     break;
                 case 4:
-                    for (int i = 0; i < 10; i++)
+                    do
+                    {
+                        Console.Write("Amount of Cups: ");
+                        isCupsCorrect = int.TryParse(Console.ReadLine(), out userWantsCups);
+                    } while (isCupsCorrect == false);
+                    for (int i = 0; i < userWantsCups; i++)
                     {
                         player.inventory.cups.Add(new Cup());
+                        player.wallet.Money -= store.pricePerCup;
+                        if (player.wallet.Money < 1.5)
+                        {
+                            bankLoanInterface();
+                        }
                     }
-                    player.wallet.Money -= 5.00;
-                    Console.Clear();
                     StoreVisit();
                     break;
                 case 5:
-                    Console.Clear();
-                    break;
-                    //This is a developer tool only, meant for testing
-                case 6:
-                    Console.WriteLine("Successfully added 10 Dollars to your balance.");
-                    player.wallet.Money += 10.00;
-                    Console.Clear();
-                    StoreVisit();
+                    Console.WriteLine("Come Again!");
+                    playerMenu(); 
                     break;
                 default:
                     Console.Clear();
@@ -323,8 +362,8 @@ namespace Lemonade_Stand
             }
             else 
             {
-                Console.WriteLine("You don't have enough lemons!\nReturning to menu");
-                Console.WriteLine("Click any key to continue");
+                Console.WriteLine("You don't have enough lemons!\n");
+                Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
                  
                 return userInput;
@@ -349,8 +388,8 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough sugar cubes!\nReturning to menu");
-                Console.WriteLine("Click any key to continue");
+                Console.WriteLine("You don't have enough sugar cubes!\n");
+                Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
                 
                 return userInput;
@@ -375,8 +414,8 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough ice cubes!\nReturning to menu");
-                Console.WriteLine("Click any key to continue");
+                Console.WriteLine("You don't have enough ice cubes!\n");
+                Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
                 return userInput;
             }
@@ -403,10 +442,10 @@ namespace Lemonade_Stand
             {
                 Console.Clear();
                 Console.WriteLine("*******************************************");
-                Console.WriteLine("*                GET-A-LOAN               *");
+                Console.WriteLine("*        GET-A-LOAN    WALLET: {0}        *", player.wallet.Money);
                 Console.WriteLine("*******************************************");
                 Console.WriteLine("*                                         *");
-                Console.WriteLine("*    YOU CAN APPLY FOR A LOAN BELOW       *");
+                Console.WriteLine("*     YOU CAN APPLY FOR A LOAN BELOW      *");
                 Console.WriteLine("*                                         *");
                 Console.WriteLine("*******************************************");
                 Console.Write("The Loan Amount: $");
@@ -415,13 +454,13 @@ namespace Lemonade_Stand
             if (potentialLoanAmount <= 10000)
             {
                 timeInvolved = 6;
-                dailyPayment = potentialLoanAmount * interestRate * timeInvolved;
+                dailyPayment = (potentialLoanAmount / 2) * interestRate * timeInvolved;
                 Console.WriteLine();
                 Console.WriteLine("*******************************************");
                 Console.WriteLine("*    YOU HAVE BEEN APPROVED FOR: ${0}     *", potentialLoanAmount);
                 Console.WriteLine("*******************************************");
                 Console.WriteLine("*                                         *");
-                Console.WriteLine("*     THE INTEREST RATE IS 5 PERCENT      *");
+                Console.WriteLine("*     THE INTEREST RATE IS 1 PERCENT      *");
                 Console.WriteLine("*     YOUR DAILY PAYMENT = ${0}           *", dailyPayment);
                 Console.WriteLine("*     FOR SIX DAYS.                       *");
                 Console.WriteLine("*******************************************");
@@ -433,7 +472,7 @@ namespace Lemonade_Stand
             {
                 Console.WriteLine("*******************************************");
                 Console.WriteLine("*             LOAN DECLINED               *");
-                Console.WriteLine("*        ANYTHING OVER $10,000 FAILS.     *");
+                Console.WriteLine("*      ANYTHING OVER $10,000 FAILS.       *");
                 Console.WriteLine("*******************************************");
                 Console.ReadLine();
                 Environment.Exit(0);
@@ -460,7 +499,7 @@ namespace Lemonade_Stand
             Console.WriteLine(".d88b. 88888    db     8b  8  888b. ");
             Console.WriteLine("YPwww.   8     dPYb    8Ybm8  8   8 ");
             Console.WriteLine("   d8    8    dP wYb   8  8   8   8");
-            Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P \n");
+            Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P' \n");
             Console.ReadKey(); 
         }
     }

@@ -35,7 +35,7 @@ namespace Lemonade_Stand
                 }
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*********************************************");
-                Console.Write("Choice: ");
+                Console.Write("#) Choice: ");
         }
         public static void ReportWeather(Weather weather, int currentDay)
         {
@@ -48,7 +48,7 @@ namespace Lemonade_Stand
             Console.WriteLine("*         Weather condition: {0}       *", weather.condition);
             Console.WriteLine("          Temperature is:    {0}F degrees *", weather.temperature);
             Console.WriteLine("*******************************************");
-            Console.WriteLine("Press any key to continue");
+            Console.WriteLine("\nPress any key...");
             Console.Read();
 
         }
@@ -59,13 +59,13 @@ namespace Lemonade_Stand
                 Console.WriteLine("*           WELCOME TO YOUR STORE           *");
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*                                           *");
-                Console.WriteLine("*1) 5 LEMONS for $2.50      Your Lemons: {0}*", player.inventory.lemons.Count);
+                Console.WriteLine("*1) LEMONS                  Your Lemons: {0}*", player.inventory.lemons.Count);
                 Console.WriteLine("*                                           *");
-                Console.WriteLine("*2) 5 SUGAR-CUBES for $1.50  Your Sugar: {0}*", player.inventory.sugarCubes.Count);
+                Console.WriteLine("*2) SUGAR-CUBES              Your Sugar: {0}*", player.inventory.sugarCubes.Count);
                 Console.WriteLine("*                                           *");
-                Console.WriteLine("*3) 5 ICE CUBES for 2.50       Your Ice: {0}*", player.inventory.iceCubes.Count);
+                Console.WriteLine("*3) ICE-CUBES                 Your Ice: {0}*", player.inventory.iceCubes.Count);
                 Console.WriteLine("*                                          *");
-                Console.WriteLine("*4) 10 CUPS for 5.00          Your Cups: {0}*", player.inventory.cups.Count);
+                Console.WriteLine("*4) CUPS                     Your Cups: {0}*", player.inventory.cups.Count);
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*5) EXIT STORE                Wallet: ${0}  *", player.wallet.Money);
                 Console.WriteLine("*                                           *");
@@ -97,11 +97,12 @@ namespace Lemonade_Stand
             double total = firstNumber + secondNumber + thirdNumber + fourthNumber;
             return total;
         }
-        public static void SalesSummary(Player player, int currentDay, Day day, int purchaseCount, double moneyGains, double paidBank, bool hasBankLoan, double dailyPayment)
+        public static void SalesSummary(Player player, int currentDay, Day day, int purchaseCount, double moneyGains, double paidBank, bool hasBankLoan, double dailyPayment, int userSelectedDayAmount)
         {
             Console.Clear();
             Console.WriteLine("*******************************************");
-            Console.WriteLine("*        Day {0} End: Sales Summary        *", currentDay);
+            Console.WriteLine("*   Day {0}        End: Sales Summary     *", currentDay);
+            Console.WriteLine("*     Of {0}                              *", userSelectedDayAmount);
             Console.WriteLine("*******************************************");
             Console.WriteLine("* {0} customers visited the lemonade stand*", day.customers.Count);
             Console.WriteLine("*                                         *");
@@ -116,7 +117,7 @@ namespace Lemonade_Stand
             {
                 Console.WriteLine("Your day was short due to shortage of cups!");
             }
-            Console.WriteLine("Click to continue");
+            Console.WriteLine("\nPress any key...");
             Console.ReadKey(true);
             if (hasBankLoan == true)
             {
@@ -139,28 +140,20 @@ namespace Lemonade_Stand
             bool isUserInputValid = false;
             do
             {
-
-                Console.WriteLine("How many days would you like to play ?\n1) 7 Days\n2) 14 Days\n3) 30 Days");
-                Console.Write("Enter Selection:");
+                Console.Write("How many days would you like to play: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
-            switch (userInput)
+            if (userInput < 7)
             {
-                case 1:
-                    userInput = 7;
-                    return userInput;
-                case 2:
-                    userInput = 14;
-                    return userInput;
-                case 3:
-                    userInput = 30;
-                    return userInput;
-                default:
-                    Console.WriteLine("Selection was invalid, try again!");
-                    Console.Clear();
-                    SelectDays();
-                    return userInput;
+                Console.WriteLine("Thats not possible.");
+                Console.ReadLine(); 
+                SelectDays();
+                return userInput; 
+            }
+            else 
+            {
+                return userInput; 
             }
         }
     }
