@@ -16,6 +16,8 @@ namespace Lemonade_Stand
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*   Welcome to YOUR LEMONADE STAND Menu!    *");
                 Console.WriteLine("*********************************************");
+                Console.WriteLine("*   (To simulate day, you will first need   *");
+                Console.WriteLine("*       to create lemonade!)                *");
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*1) Go to the Store!                        *");
                 Console.WriteLine("*                                           *");

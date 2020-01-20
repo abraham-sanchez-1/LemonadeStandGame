@@ -14,7 +14,7 @@ namespace Lemonade_Stand
         //Pitcher Constructor Setting and Holding Two Variables
         public Pitcher()
         {
-            cupsLeftInPitcher = 20;
+            cupsLeftInPitcher = 25;
             pitcherTasteScore = 0;
         }
     }
