@@ -53,6 +53,7 @@ namespace Lemonade_Stand
             Console.WriteLine("* of each ingredient in prompt below. The *");
             Console.WriteLine("* better the lemonade, the more customers *");
             Console.WriteLine("* you will have purchase from you!        *");
+            Console.WriteLine("* (Hint: Perfect amount of lemons is 3!   *");
             Console.WriteLine("*******************************************");
             Console.WriteLine("*         Your Lemons Inventory: {0}      *", player.inventory.lemons.Count);
             Console.WriteLine("*                                         *");
