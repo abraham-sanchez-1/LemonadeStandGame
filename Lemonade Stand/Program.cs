@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO; 
 
 namespace Lemonade_Stand
 {
@@ -10,8 +11,8 @@ namespace Lemonade_Stand
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
-            game.NewGame();
+            Game startGame = new Game();
+            startGame.NewGame();
         }
     }
 }

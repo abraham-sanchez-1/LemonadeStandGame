@@ -17,7 +17,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("*   Welcome to YOUR LEMONADE STAND Menu!    *");
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*   (To simulate day, you will first need   *");
-                Console.WriteLine("*       to create lemonade!)                *");
+                Console.WriteLine("*       to create lemonade!) SAVE - 7       *");
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*1) Go to the Store!                        *");
                 Console.WriteLine("*                                           *");
@@ -42,9 +42,9 @@ namespace Lemonade_Stand
             Console.WriteLine("*******************************************");
             Console.WriteLine("*       Weather Report for the day        *");
             Console.WriteLine("*******************************************");
-            Console.WriteLine("*         Day:               {0}          *", currentDay);
-            Console.WriteLine("*         Weather condition: {0}       *", weather.condition);
-            Console.WriteLine("          Temperature is:    {0}F degrees *", weather.temperature);
+            Console.WriteLine("*         Day:               {0}         ", currentDay);
+            Console.WriteLine("*         Forcasted condition: {0}       ", weather.predictedForecast);
+            Console.WriteLine("          Temperature is:    {0}F degrees ", weather.temperature);
             Console.WriteLine("*******************************************");
             Console.WriteLine("\nPress any key...");
             Console.Read();
@@ -57,15 +57,15 @@ namespace Lemonade_Stand
                 Console.WriteLine("*           WELCOME TO YOUR STORE           *");
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*                                           *");
-                Console.WriteLine("*1) LEMONS                  Your Lemons: {0}*", player.inventory.lemons.Count);
+                Console.WriteLine("*1) LEMONS                  Your Lemons: {0}", player.inventory.lemons.Count);
                 Console.WriteLine("*                                           *");
-                Console.WriteLine("*2) SUGAR-CUBES              Your Sugar: {0}*", player.inventory.sugarCubes.Count);
+                Console.WriteLine("*2) SUGAR-CUBES              Your Sugar: {0}", player.inventory.sugarCubes.Count);
                 Console.WriteLine("*                                           *");
-                Console.WriteLine("*3) ICE-CUBES                 Your Ice: {0}*", player.inventory.iceCubes.Count);
-                Console.WriteLine("*                                          *");
-                Console.WriteLine("*4) CUPS                     Your Cups: {0}*", player.inventory.cups.Count);
+                Console.WriteLine("*3) ICE-CUBES                 Your Ice: {0}", player.inventory.iceCubes.Count);
                 Console.WriteLine("*                                           *");
-                Console.WriteLine("*5) EXIT STORE                Wallet: ${0}  *", player.wallet.Money);
+                Console.WriteLine("*4) CUPS                     Your Cups: {0}", player.inventory.cups.Count);
+                Console.WriteLine("*                                           *");
+                Console.WriteLine("*5) EXIT STORE                Wallet: ${0}  ", player.wallet.Money);
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*********************************************");
         }
@@ -81,13 +81,13 @@ namespace Lemonade_Stand
             Console.WriteLine("* you will have purchase from you!        *");
             Console.WriteLine("* (Hint: Perfect amount of lemons is 3!   *");
             Console.WriteLine("*******************************************");
-            Console.WriteLine("*         Your Lemons Inventory: {0}      *", player.inventory.lemons.Count);
+            Console.WriteLine("*         Your Lemons Inventory: {0}      ", player.inventory.lemons.Count);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*         Your Sugar Inventory:  {0}      *", player.inventory.sugarCubes.Count);
+            Console.WriteLine("*         Your Sugar Inventory:  {0}     ", player.inventory.sugarCubes.Count);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*         Your Ice Inventory:    {0}      *", player.inventory.iceCubes.Count);
+            Console.WriteLine("*         Your Ice Inventory:    {0}     ", player.inventory.iceCubes.Count);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*         Your Cups Inventory:   {0}      *", player.inventory.cups.Count);
+            Console.WriteLine("*         Your Cups Inventory:   {0}      ", player.inventory.cups.Count);
             Console.WriteLine("*******************************************");
         }
         public static double AddFourNumbers(double firstNumber, double secondNumber, double thirdNumber, double fourthNumber)
@@ -99,19 +99,29 @@ namespace Lemonade_Stand
         {
             Console.Clear();
             Console.WriteLine("*******************************************");
-            Console.WriteLine("*   Day {0}        End: Sales Summary     *", currentDay);
-            Console.WriteLine("*     Of {0}                              *", userSelectedDayAmount);
+            Console.WriteLine("*   Day {0}             Sales Summary     ", currentDay);
+            Console.WriteLine("*     Of {0}               Below          ", userSelectedDayAmount);
             Console.WriteLine("*******************************************");
-            Console.WriteLine("* {0} customers visited the lemonade stand*", day.customers.Count);
+            Console.WriteLine("* {0} customers visited the lemonade stand!", day.customers.Count);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*   There were {0} lemonade purchases     *", purchaseCount);
+            Console.WriteLine("*   There were {0} lemonade purchases    ", purchaseCount);
             Console.WriteLine("*                                         *");
-            Console.WriteLine("*         You made ${0} today!            *", moneyGains);
+            Console.WriteLine("*         You made ${0} today!            ", moneyGains);
             Console.WriteLine("*                                         *");
             Console.WriteLine("* Customers gave your lemonade a score of *");
-            Console.WriteLine("*                 {0}                     *", player.pitcher.pitcherTasteScore);
+            Console.WriteLine("*                 {0}                     ", player.pitcher.pitcherTasteScore);
             Console.WriteLine("*******************************************");
-            if(player.inventory.cups.Count == 0)
+            if (currentDay > userSelectedDayAmount)
+            {
+                //Issue with entering this section
+                Console.Clear();
+                Console.WriteLine("You have succesfully completed Lemonade Stand!");
+                Console.WriteLine("Developed by:\nAbraham Sanchez & Marcus Johnson!");
+                Console.WriteLine("Thank you for playing!");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
+            if (player.inventory.cups.Count == 0)
             {
                 Console.WriteLine("Your day was short due to shortage of cups!");
             }

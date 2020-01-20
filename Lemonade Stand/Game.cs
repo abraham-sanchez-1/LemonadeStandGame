@@ -5,6 +5,7 @@ using System.Text;
 using System.Media;
 using System.Threading.Tasks;
 using System.Threading;
+using System.IO; 
 
 namespace Lemonade_Stand
 {
@@ -18,11 +19,19 @@ namespace Lemonade_Stand
 
         public List<Day> days;
 
+        public string saveUsername; 
+
         public bool userInputValid = false, hasBankLoan = false, lemonadeCreationSelected = false; 
         
-        public double potentialLoanAmount, paidBank = 0, dailyPayment, interestRate = .01, timeInvolved, moneyGains;
+        public double potentialLoanAmount, paidBank = 0, dailyPayment, interestRate = .01, timeInvolved, moneyGains, saveMoney;
 
-        public int currentDay = 1, purchaseCount, userSelectedDayAmount; 
+        public int currentDay = 1, purchaseCount, userSelectedDayAmount;
+
+        public string filePath = @"C:\Users\userc\Desktop\Dev Code Camp\Week - 3\Projects\LemonadeStandGame\Lemonade Stand\userContent.txt";
+        public List<String> dataText = new List<string>();
+        public List<String> Usernames = new List<string>();
+        public List<double> Cash = new List<double>(); 
+
 
         //Public Game Constructor Creating New Game
         public Game()
@@ -39,38 +48,10 @@ namespace Lemonade_Stand
             titleMenu();
 
             userSelectedDayAmount = userInterface.SelectDays();
-            while (currentDay < userSelectedDayAmount || player.wallet.Money >= 1.50)
-            {
-                playerMenu();    
-                if (currentDay > userSelectedDayAmount)
-                {
-                    //Issue with entering this section
-                    Console.Clear();
-                    Console.WriteLine("You have succesfully completed Lemonade Stand!");
-                    Console.WriteLine("Developed by: Abraham Sanchez and Marcus Johnson!");
-                    Console.WriteLine("Thank you for playing!");
-                    Console.ReadLine();
-                    Environment.Exit(0);
-                }
-                else if (player.wallet.Money < 1.50)
-                {
-                    bankLoanInterface();
-                }
-            }
 
-            if (currentDay > userSelectedDayAmount)
-            {
-                Console.Clear();
-                Console.WriteLine("You have succesfully completed Lemonade Stand!");
-                Console.WriteLine("Developed by: Abraham Sanchez and Marcus Johnson!");
-                Console.WriteLine("Thank you for playing!");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
-            else if (player.wallet.Money <= 1.50)
-            {
-                bankLoanInterface();
-            }
+            day.weather.randomWeatherEvent();
+
+            playerMenu();
 
         }
         public void playerMenu()
@@ -118,6 +99,9 @@ namespace Lemonade_Stand
                             Console.ReadLine();
                             
                         }
+                        break;
+                    case 7:
+                        saveGame();
                         break;
                     default:
                         playerMenu();
@@ -445,7 +429,7 @@ namespace Lemonade_Stand
             {
                 Console.Clear();
                 Console.WriteLine("*******************************************");
-                Console.WriteLine("*        GET-A-LOAN    WALLET: {0}        *", player.wallet.Money);
+                Console.WriteLine("*        GET-A-LOAN    WALLET: {0}       ", player.wallet.Money);
                 Console.WriteLine("*******************************************");
                 Console.WriteLine("*                                         *");
                 Console.WriteLine("*     YOU CAN APPLY FOR A LOAN BELOW      *");
@@ -460,11 +444,11 @@ namespace Lemonade_Stand
                 dailyPayment = (potentialLoanAmount / 2) * interestRate * timeInvolved;
                 Console.WriteLine();
                 Console.WriteLine("*******************************************");
-                Console.WriteLine("*    YOU HAVE BEEN APPROVED FOR: ${0}     *", potentialLoanAmount);
+                Console.WriteLine("*    YOU HAVE BEEN APPROVED FOR: ${0}     ", potentialLoanAmount);
                 Console.WriteLine("*******************************************");
                 Console.WriteLine("*                                         *");
                 Console.WriteLine("*     THE INTEREST RATE IS 1 PERCENT      *");
-                Console.WriteLine("*     YOUR DAILY PAYMENT = ${0}           *", dailyPayment);
+                Console.WriteLine("*     YOUR DAILY PAYMENT = ${0}           ", dailyPayment);
                 Console.WriteLine("*     FOR SIX DAYS.                       *");
                 Console.WriteLine("*******************************************");
                 hasBankLoan = true;
@@ -484,6 +468,8 @@ namespace Lemonade_Stand
         }
         public void titleMenu()
         {
+            Console.SetWindowPosition(0, 0);
+            Console.SetWindowSize(52, 20);
             SoundPlayer player = new SoundPlayer();
             player.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "Barbarian - Pierlo.wav";
             player.Play();
@@ -505,6 +491,32 @@ namespace Lemonade_Stand
             Console.WriteLine("   d8    8    dP wYb   8  8   8   8");
             Console.WriteLine("'Y88P'   8   dP    Yb  8  18  888P' \n");
             Console.ReadKey(); 
+        }
+
+        public void saveGame()
+        {
+            Console.WriteLine("What is your name: ");
+            saveUsername = Console.ReadLine();
+            saveMoney = player.wallet.Money; 
+
+
+            dataText = File.ReadAllLines(filePath).ToList();
+
+            dataText.Add(saveUsername);
+            dataText.Add(saveMoney.ToString());
+           
+            File.WriteAllLines(filePath, dataText);
+
+            openGame();
+        }
+
+        public void openGame()
+        {
+            foreach (string line in dataText)
+            {
+                Console.WriteLine(line);
+            }
+            Console.ReadLine();
         }
     }
 }
