@@ -9,6 +9,41 @@ namespace Lemonade_Stand
     public static class userInterface
     {
         public static int currentDay = 1;
+
+        public static void playerMenu(bool lemonadeCreationSelected)
+        {
+            Console.Clear();
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("*********************************************");
+                Console.WriteLine("*   Welcome to YOUR LEMONADE STAND Menu!    *");
+                Console.WriteLine("*********************************************");
+                Console.WriteLine("*                                           *");
+                Console.WriteLine("*1) Goto the Store!                         *");
+                Console.WriteLine("*                                           *");
+                Console.WriteLine("*2) Goto the Bank!                          *");
+                Console.WriteLine("*                                           *");
+                Console.WriteLine("*3) Check the Weather!                      *");
+                Console.WriteLine("*                                           *");
+                Console.WriteLine("*4) Create your Lemonade!                   *");
+                Console.WriteLine("*                                           *");
+                if (lemonadeCreationSelected == true)
+                {
+                    Console.WriteLine("*5) Play out your Day!                      *");
+                    Console.WriteLine("*                                           *");
+                    Console.WriteLine("6) Your End of Day Summary!");
+                }
+                else if (lemonadeCreationSelected == false)
+                {
+                    Console.WriteLine("*                                           *");
+                }
+                Console.WriteLine("*                                           *");
+                Console.WriteLine("*********************************************");
+                Console.Write("Choice: ");
+
+            } while (lemonadeCreationSelected == false);
+        }
         public static void ReportWeather(Weather weather, int currentDay)
         {
 
@@ -26,7 +61,7 @@ namespace Lemonade_Stand
         }
         public static void StoreMenu(Player player)
         {
-            Console.Clear();
+                Console.Clear();
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*           WELCOME TO YOUR STORE           *");
                 Console.WriteLine("*********************************************");
