@@ -42,15 +42,7 @@ namespace Lemonade_Stand
             while (currentDay < userSelectedDayAmount || player.wallet.Money < 1.00)
             {
                 playerMenu();
-                day.weather.randomWeatherEvent();
-                StoreVisit();
-                LemonadeCreation();
-                SimulateDay();
-                //*UserInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);*/ 
-                currentDay++;
-                purchaseCount = 0;
-                moneyGains = 0;
-                day.customers.Clear();
+
                 if (currentDay > userSelectedDayAmount)
                 {
                     //Issue with entering this section
@@ -84,31 +76,63 @@ namespace Lemonade_Stand
         }
         public void playerMenu()
         {
-            Console.Clear();
-            Console.WriteLine("*********************************************");
-            Console.WriteLine("*   Welcome to YOUR LEMONADE STAND Menu!    *");
-            Console.WriteLine("*********************************************");
-            Console.WriteLine("*                                           *");
-            Console.WriteLine("*1) Goto the Store!                         *");
-            Console.WriteLine("*                                           *");
-            Console.WriteLine("*2) Goto the Bank!                          *");
-            Console.WriteLine("*                                           *");
-            Console.WriteLine("*3) Check the Weather!                      *");
-            Console.WriteLine("*                                           *");
-            Console.WriteLine("*4) Create your Lemonade!                   *");
-            Console.WriteLine("*                                           *");
-            if (lemonadeCreationSelected == true)
+            int userInputForMenu;
+            bool userInputIsValid = false; 
+
+            do {
+                userInterface.playerMenu(lemonadeCreationSelected);
+
+                userInputIsValid = int.TryParse(Console.ReadLine(), out userInputForMenu); 
+     
+            } while (userInputIsValid == false);
+            switch (userInputForMenu)
             {
-            Console.WriteLine("*5) Play out your Day!                      *");
-            Console.WriteLine("*                                           *");
-            Console.WriteLine("6) Your End of Day Summary!");
-            }
-            else if (lemonadeCreationSelected == false)
-            {
-            Console.WriteLine("*                                           *");
-            }
-            Console.WriteLine("*                                           *");
-            Console.WriteLine("*********************************************");
+                case 1:
+                    day.weather.randomWeatherEvent();
+                    StoreVisit();
+                    break;
+                case 2:
+                    //callingBankFunctionHere
+                    break;
+                case 3:
+                    weatherReport();
+                    break;
+                case 4:
+                    LemonadeCreation();
+                    break;
+                case 5:
+                    if (lemonadeCreationSelected == true)
+                    {
+                        day.customers.Clear();
+                        purchaseCount = 0;
+                        moneyGains = 0;
+                        simulateDay();
+                        currentDay++;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("You need to create your lemonade first!");
+                        Console.ReadLine();
+                        playerMenu();
+                    }
+                    break;
+                case 6:
+                    if (lemonadeCreationSelected == true)
+                    {
+                        userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("You need to create your lemonade first & simulate your day!");
+                        Console.ReadLine();
+                        playerMenu();
+                    }
+                    break;
+            } 
+          
+            
         }
 
         public void StoreVisit()
@@ -180,14 +204,8 @@ namespace Lemonade_Stand
         {
             userInterface.ReportWeather(day.weather, currentDay);
         }
-        public void SimulateDay()//CANNOT OCCUR IN MENU UNLESS LEMONADE CREATION IS SET
-        {
-            
-            populateCustomers();
-            userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
-        }
-        
-        public void populateCustomers()
+
+        public void simulateDay()
         {
             if (player.wallet.Money <= 1.00)
             {
