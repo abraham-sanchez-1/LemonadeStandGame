@@ -19,7 +19,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("*   (To simulate day, you will first need   *");
                 Console.WriteLine("*       to create lemonade!) SAVE - 7       *");
                 Console.WriteLine("*                                           *");
-                Console.WriteLine("*            Current Day: {0}               *", currentDay);
+                Console.WriteLine("*            Current Day: {0}              ", currentDay);
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*1) Go to the Store!                        *");
                 Console.WriteLine("*                                           *");
@@ -154,7 +154,7 @@ namespace Lemonade_Stand
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
-            if (userInput < 7)
+            if (userInput <= 7)
             {
                 Console.WriteLine("Thats not possible.");
                 Console.ReadLine(); 
