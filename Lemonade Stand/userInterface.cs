@@ -17,7 +17,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("*   Welcome to YOUR LEMONADE STAND Menu!    *");
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*                                           *");
-                Console.WriteLine("*1) Goto the Store!                         *");
+                Console.WriteLine("*1) Go to the Store!                        *");
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*2) Get-a-Loan!                             *");
                 Console.WriteLine("*                                           *");
@@ -27,13 +27,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("*                                           *");
                 if (lemonadeCreationSelected == true)
                 {
-                Console.WriteLine("*5) Play out your Day!                      *");
-                Console.WriteLine("*                                           *");
-                Console.WriteLine("*6) Your End of Day Summary!                *");
-                }
-                else if (lemonadeCreationSelected == false)
-                {
-
+                Console.WriteLine("*5) Simulate day!                           *");
                 }
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*********************************************");

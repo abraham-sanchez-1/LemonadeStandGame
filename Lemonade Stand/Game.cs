@@ -39,9 +39,9 @@ namespace Lemonade_Stand
             titleMenu();
 
             int userSelectedDayAmount = userInterface.SelectDays();
-            while (currentDay < userSelectedDayAmount || player.wallet.Money < 1.00)
+            while (currentDay < userSelectedDayAmount || player.wallet.Money >= 1.50)
             {
-                    
+                playerMenu();    
                 if (currentDay > userSelectedDayAmount)
                 {
                     //Issue with entering this section
@@ -52,7 +52,7 @@ namespace Lemonade_Stand
                     Console.ReadLine();
                     Environment.Exit(0);
                 }
-                else if (player.wallet.Money < 1.00)
+                else if (player.wallet.Money < 1.50)
                 {
                     bankLoanInterface();
                 }
@@ -77,60 +77,53 @@ namespace Lemonade_Stand
         {
             int userInputForMenu;
             bool isUserInputValid = false;
-
-            userInterface.playerMenu(lemonadeCreationSelected);
-
-            isUserInputValid = int.TryParse(Console.ReadLine(), out userInputForMenu);
-            
-            switch (userInputForMenu)
+            bool isRoundOver = false;
+            while (!isRoundOver)
             {
-                case 1:
-                    day.weather.randomWeatherEvent();
-                    StoreVisit();
-                    break;
-                case 2:
-                    bankLoanInterface();
-                    break;
-                case 3:
-                    weatherReport();
-                    break;
-                case 4:
-                    LemonadeCreation();
-                    break;
-                case 5:
-                    if (lemonadeCreationSelected == true)
-                    {
-                        day.customers.Clear();
-                        purchaseCount = 0;
-                        moneyGains = 0;
-                        simulateDay();
-                        currentDay++;
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("You need to create your lemonade first!");
-                        Console.ReadLine();
+                userInterface.playerMenu(lemonadeCreationSelected);
+
+                isUserInputValid = int.TryParse(Console.ReadLine(), out userInputForMenu);
+
+                switch (userInputForMenu)
+                {
+                    case 1:
+                        day.weather.randomWeatherEvent();
+                        StoreVisit();
+                        break;
+                    case 2:
+                        bankLoanInterface();
+                        break;
+                    case 3:
+                        weatherReport();
+                        break;
+                    case 4:
+                        LemonadeCreation();
+                        break;
+                    case 5:
+                        if (lemonadeCreationSelected == true)
+                        {
+                            simulateDay();
+                            userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
+                            isRoundOver = true;
+                            day.customers.Clear();
+                            purchaseCount = 0;
+                            moneyGains = 0;
+                            currentDay++;
+                            lemonadeCreationSelected = false;
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You need to create your lemonade first!");
+                            Console.ReadLine();
+                            
+                        }
+                        break;
+                    default:
                         playerMenu();
-                    }
-                    break;
-                case 6:
-                    if (lemonadeCreationSelected == true)
-                    {
-                        userInterface.SalesSummary(player, currentDay, day, purchaseCount, moneyGains, paidBank, hasBankLoan, dailyPayment);
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("You need to create your lemonade first & simulate your day!");
-                        Console.ReadLine();
-                        playerMenu();
-                    }
-                    break;
-                default:
-                    playerMenu();
-                    break; 
-            } 
+                        break;
+                }
+            }
         }
 
         public void StoreVisit()
@@ -289,18 +282,13 @@ namespace Lemonade_Stand
                     player.wallet.Money += player.pitcher.setCupPrice;
                     moneyGains += player.pitcher.setCupPrice;
                     player.inventory.cups.RemoveAt(0);
-                    if (day.customers.Count == i)
-                    {
-                        lemonadeCreationSelected = false;
-                        playerMenu();
-                    }
                 }
                 else if (player.inventory.cups.Count == 0)
                 {
                     Console.WriteLine("You have run out cups to serve your lemonade!\n");
-                    Console.ReadLine();
+                    Console.WriteLine("Click any key to continue");
+                    Console.ReadKey();
                     Console.Clear();
-                    playerMenu();
                     break;
                 }
             }
@@ -317,7 +305,7 @@ namespace Lemonade_Stand
             double lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
             double iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
             double sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
-            player.pitcher.pitcherTasteScore = 50 - userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, priceDeviance);
+            player.pitcher.pitcherTasteScore = 100 - userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, priceDeviance);
             lemonadeCreationSelected = true; 
         }
         public int LemonAmount()
@@ -338,7 +326,9 @@ namespace Lemonade_Stand
             }
             else 
             {
-                Console.WriteLine("You don't have enough lemons!");
+                Console.WriteLine("You don't have enough lemons!\nReturning to menu");
+                Console.WriteLine("Click any key to continue");
+                Console.ReadKey();
                 playerMenu(); 
                 return userInput;
             }
@@ -362,7 +352,9 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough sugar cubes!");
+                Console.WriteLine("You don't have enough sugar cubes!\nReturning to menu");
+                Console.WriteLine("Click any key to continue");
+                Console.ReadKey();
                 playerMenu();
                 return userInput;
             }
@@ -386,7 +378,9 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough ice cubes!");
+                Console.WriteLine("You don't have enough ice cubes!\nReturning to menu");
+                Console.WriteLine("Click any key to continue");
+                Console.ReadKey();
                 playerMenu();
                 return userInput;
             }
@@ -404,12 +398,8 @@ namespace Lemonade_Stand
             } while (isUserInputValid == false);
             player.pitcher.setCupPrice = userInput;
             lemonadeCreationSelected = true; 
-            playerMenu();
             return userInput;
         }
-
-
-
 
         public void bankLoanInterface()
         {
