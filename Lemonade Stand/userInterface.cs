@@ -10,7 +10,7 @@ namespace Lemonade_Stand
     {
         public static int currentDay = 1;
 
-        public static void playerMenu(bool lemonadeCreationSelected)
+        public static void playerMenu(bool lemonadeCreationSelected, int currentDay)
         {
                 Console.Clear();
                 Console.WriteLine("*********************************************");
@@ -18,6 +18,8 @@ namespace Lemonade_Stand
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*   (To simulate day, you will first need   *");
                 Console.WriteLine("*       to create lemonade!) SAVE - 7       *");
+                Console.WriteLine("*                                           *");
+                Console.WriteLine("*            Current Day: {0}               *", currentDay);
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*1) Go to the Store!                        *");
                 Console.WriteLine("*                                           *");
