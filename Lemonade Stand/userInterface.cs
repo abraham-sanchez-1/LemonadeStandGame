@@ -124,7 +124,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("Your day was short due to shortage of cups!");
             }
             Console.WriteLine("Click to continue");
-            Console.ReadLine();
+            Console.ReadKey(true);
             if (hasBankLoan == true)
             {
                 player.wallet.Money -= dailyPayment;
