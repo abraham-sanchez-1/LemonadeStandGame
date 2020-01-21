@@ -125,11 +125,22 @@ namespace Lemonade_Stand
             Console.WriteLine("* Customers gave your lemonade a score of *");
             Console.WriteLine("*                 {0}                     ", player.pitcher.pitcherTasteScore);
             Console.WriteLine("*******************************************");
-            if (currentDay > userSelectedDayAmount)
+            if (currentDay > userSelectedDayAmount && player.wallet.Money >= 30)
             {
                 //Issue with entering this section
                 Console.Clear();
+                Console.WriteLine("Game has ended! You ended with ${0}", player.wallet.Money);
                 Console.WriteLine("You have succesfully completed Lemonade Stand!");
+                Console.WriteLine("Developed by:\nAbraham Sanchez & Marcus Johnson!");
+                Console.WriteLine("Thank you for playing!");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
+            if (currentDay > userSelectedDayAmount && player.wallet.Money < 30)
+            {
+                Console.Clear();
+                Console.WriteLine("Game has ended! You ended with ${0}", player.wallet.Money);
+                Console.WriteLine("You lemonade business ventures were unsuccessful!");
                 Console.WriteLine("Developed by:\nAbraham Sanchez & Marcus Johnson!");
                 Console.WriteLine("Thank you for playing!");
                 Console.ReadLine();
