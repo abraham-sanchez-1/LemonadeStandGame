@@ -12,7 +12,7 @@ namespace Lemonade_Stand
         static void Main(string[] args)
         {
             Game startGame = new Game();
-            startGame.NewGame();
+            startGame.NewGame(); 
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("*   Welcome to YOUR LEMONADE STAND Menu!    *");
                 Console.WriteLine("*********************************************");
                 Console.WriteLine("*   (To simulate day, you will first need   *");
-                Console.WriteLine("*       to create lemonade!) SAVE - 7       *");
+                Console.WriteLine("*       to create lemonade!)                *");
                 Console.WriteLine("*                                           *");
                 Console.WriteLine("*            Current Day: {0}              ", currentDay);
                 Console.WriteLine("*                                           *");
