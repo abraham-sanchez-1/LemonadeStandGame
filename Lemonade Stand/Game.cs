@@ -19,19 +19,13 @@ namespace Lemonade_Stand
 
         public List<Day> days;
 
-        public string saveUsername; 
+        public bool userInputValid = false, hasBankLoan = false, lemonadeCreationSelected = false;
 
-        public bool userInputValid = false, hasBankLoan = false, lemonadeCreationSelected = false; 
-        
-        public double potentialLoanAmount, paidBank = 0, dailyPayment, interestRate = .01, timeInvolved, moneyGains, saveMoney;
+        public double potentialLoanAmount, paidBank = 0, dailyPayment, interestRate = .01, timeInvolved, moneyGains;
 
         public int currentDay = 1, purchaseCount, userSelectedDayAmount;
 
-        public string filePath = @"C:\Users\userc\Desktop\Dev Code Camp\Week - 3\Projects\LemonadeStandGame\Lemonade Stand\userContent.txt";
-        public List<String> dataText = new List<string>();
-        public List<String> Usernames = new List<string>();
-        public List<double> Cash = new List<double>(); 
-
+        
 
         //Public Game Constructor Creating New Game
         public Game()
@@ -101,7 +95,7 @@ namespace Lemonade_Stand
                         }
                         break;
                     case 7:
-                        saveGame();
+
                         break;
                     default:
                         
@@ -488,30 +482,6 @@ namespace Lemonade_Stand
             Console.ReadKey(); 
         }
 
-        public void saveGame()
-        {
-            Console.WriteLine("What is your name: ");
-            saveUsername = Console.ReadLine();
-            saveMoney = player.wallet.Money; 
-
-
-            dataText = File.ReadAllLines(filePath).ToList();
-
-            dataText.Add(saveUsername);
-            dataText.Add(saveMoney.ToString());
-           
-            File.WriteAllLines(filePath, dataText);
-
-            openGame();
-        }
-
-        public void openGame()
-        {
-            foreach (string line in dataText)
-            {
-                Console.WriteLine(line);
-            }
-            Console.ReadLine();
-        }
+       
     }
 }
