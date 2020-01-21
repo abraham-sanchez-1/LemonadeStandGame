@@ -25,7 +25,7 @@ namespace Lemonade_Stand
 
         public int currentDay = 1, purchaseCount, userSelectedDayAmount;
 
-        
+
 
         //Public Game Constructor Creating New Game
         public Game()
@@ -40,6 +40,7 @@ namespace Lemonade_Stand
         public void NewGame()
         {
             titleMenu();
+            GoalOfGame();
 
             userSelectedDayAmount = userInterface.SelectDays();
 
@@ -47,6 +48,10 @@ namespace Lemonade_Stand
 
             playerMenu();
 
+        }
+        public void GoalOfGame()
+        {
+            Console.WriteLine("Welcome to 'Your Lemonade Stand,' the game! \n\nGoal of the game: Get to desired end date with at least $30 wallet!");
         }
         public void playerMenu()
         {
@@ -91,14 +96,14 @@ namespace Lemonade_Stand
                             Console.Clear();
                             Console.WriteLine("You need to create your lemonade first!");
                             Console.ReadLine();
-                            
+
                         }
                         break;
                     case 7:
 
                         break;
                     default:
-                        
+
                         break;
                 }
             }
@@ -109,12 +114,12 @@ namespace Lemonade_Stand
             int userwWantsLemons;
             int userWantsSugarCubes;
             int userWantsIceCubes;
-            int userWantsCups; 
+            int userWantsCups;
 
             bool isLemonsCorrect = false;
             bool isSugarCorrect = false;
             bool isIceCubesCorrect = false;
-            bool isCupsCorrect = false; 
+            bool isCupsCorrect = false;
 
             Console.Clear();
             int userInput = 0;
@@ -132,7 +137,7 @@ namespace Lemonade_Stand
                     } while (isLemonsCorrect == false);
                     for (int i = 0; i < userwWantsLemons; i++)
                     {
-                        player.inventory.lemons.Add( new Lemon());
+                        player.inventory.lemons.Add(new Lemon());
                         player.wallet.Money -= store.pricePerLemon;
 
                         if (player.wallet.Money < 1.5)
@@ -175,7 +180,7 @@ namespace Lemonade_Stand
                         {
                             bankLoanInterface();
                         }
-                        
+
                     }
                     StoreVisit();
                     break;
@@ -198,7 +203,7 @@ namespace Lemonade_Stand
                     break;
                 case 5:
                     Console.WriteLine("Come Again!");
-                    playerMenu(); 
+                    playerMenu();
                     break;
                 default:
                     Console.Clear();
@@ -225,7 +230,7 @@ namespace Lemonade_Stand
                     day.customers.Add(new Customer("Customers" + i));
                 }
             }
-            else if (day.weather.condition == "sunny" && day.weather.temperature <90)
+            else if (day.weather.condition == "sunny" && day.weather.temperature < 90)
             {
                 for (int i = 0; i < 70; i++)
                 {
@@ -308,17 +313,67 @@ namespace Lemonade_Stand
 
         public void LemonadeCreation()
         {
-            userInterface.LemonadeCreationInstructions(player);
-            double priceDeviance = Math.Abs(player.recipe.pricePerCup - player.pitcher.setCupPrice);
-            double lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - LemonAmount());
-            double iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - IceAmount());
-            double sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - SugarAmount());
-            //multiplier of 4 creates higher difference and determines difficulty
-            player.pitcher.pitcherTasteScore = 100 - 4*(userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, priceDeviance));
-            lemonadeCreationSelected = true; 
+            Console.Clear();
+            bool validLemonade = false;
+                //ifIngredientAtZero method gives user the chance to exit to store if the have zero qty for an ingredient
+                //user can enter this method with zero quantity but their lemonade tastescore will be very low, lowering chances for sales
+                validLemonade = ifIngredientAtZero();
+                if (validLemonade)
+                {
+                return;
+                }
+                userInterface.LemonadeCreationInstructions(player);
+
+                //this method sets up lemon, ice, and sugar qty's, as well as sets up price.
+                //all ingredient components are stacked against the "master" recipe and the further you deviate from it, the worse your taste score
+                //customers have an inherent taste score of their own, if the score of your lemonade is higher than their score, they will purchase
+                double lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - LemonAmount());
+                double sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - SugarAmount());
+                double iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - IceAmount());
+                double priceDeviance = Math.Abs(player.recipe.pricePerCup - SetPriceOfCup());
+                //multiplier of 4 creates higher difference and determines difficulty
+                player.pitcher.pitcherTasteScore = 100 - 4 * (userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, priceDeviance));
+                lemonadeCreationSelected = true;
+            
+
         }
+        public bool ifIngredientAtZero()
+        {
+            if (player.inventory.lemons.Count == 0 || player.inventory.sugarCubes.Count == 0 || player.inventory.iceCubes.Count == 0)
+            {
+                Console.WriteLine("One or more of your ingredients is empty, please select option\n1) Proceed as is\n2) Exit back to store");
+                double userInput;
+                bool isUserInputValid = false;
+                do
+                {
+                    isUserInputValid = double.TryParse(Console.ReadLine(), out userInput);
+
+                } while (isUserInputValid == false);
+                switch (userInput)
+                {
+                    case 1:
+                        return false;
+                    case 2:
+                        return true;
+                    default:
+                        Console.WriteLine("Input was invalid");
+                        return ifIngredientAtZero();
+                }
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+        
         public int LemonAmount()
         {
+            if (player.inventory.lemons.Count ==0)
+            {
+                Console.WriteLine("You have zero lemons, lemonade to be made without lemons :(");
+                return 0;
+            }
             int userInput;
             bool isUserInputValid = false;
             do
@@ -333,23 +388,26 @@ namespace Lemonade_Stand
             }
             else 
             {
-                Console.WriteLine("You don't have enough lemons!\nLemonade will be created without any lemons :(");
+                Console.WriteLine("You don't have enough lemons!\nPlease select a different qty!");
                 Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
-                return userInput = 0;
+                return  LemonAmount();
             }
 
         }
         public int SugarAmount()
         {
+            if (player.inventory.sugarCubes.Count == 0)
+            {
+                Console.WriteLine("You have zero sugar cubes, lemonade to be made without sugar :(");
+                return 0;
+            }
             int userInput;
             bool isUserInputValid = false;
             do
             {
-
                 Console.Write("How many sugar cubes would you like to add: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
-
             } while (isUserInputValid == false);
             if (player.inventory.sugarCubes.Count >= userInput)
             {
@@ -358,24 +416,26 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough sugar cubes!\nLemonade will be created with no sugar :(");
+                Console.WriteLine("You don't have enough sugaar cubes!\nPlease select a different qty!");
                 Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
-                
-                return userInput = 0;
+                return SugarAmount();
             }
 
         }
         public int IceAmount()
         {
+            if (player.inventory.iceCubes.Count == 0)
+            {
+                Console.WriteLine("You have zero ice cubes, lemonade to be made without ice :(");
+                return 0;
+            }
             int userInput;
             bool isUserInputValid = false;
             do
             {
-
                 Console.Write("How many ice cubes would you like to add: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
-
             } while (isUserInputValid == false);
             if (player.inventory.iceCubes.Count >= userInput)
             {
@@ -384,13 +444,14 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough ice cubes!\nLemonade will be created without any ice :(");
+                Console.WriteLine("You don't have enough ice cubes!\nPlease select a different qty!");
                 Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
-                return userInput = 0;
+                return IceAmount();
             }
 
         }
+        
         public double SetPriceOfCup()
         {
             double userInput;
