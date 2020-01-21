@@ -309,14 +309,10 @@ namespace Lemonade_Stand
         public void LemonadeCreation()
         {
             userInterface.LemonadeCreationInstructions(player);
-            double lemonPitcherAmount = LemonAmount();
-            double sugarCubePitcherAmount = SugarAmount();
-            double iceCubePitcherAmount = IceAmount();
-            double setCupPrice = SetPriceOfCup();
             double priceDeviance = Math.Abs(player.recipe.pricePerCup - player.pitcher.setCupPrice);
-            double lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - lemonPitcherAmount);
-            double iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - iceCubePitcherAmount);
-            double sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - sugarCubePitcherAmount);
+            double lemonFlavorDeviance = Math.Abs(player.recipe.amountOfLemons - LemonAmount());
+            double iceCubeFlavorDeviance = Math.Abs(player.recipe.amountOfIceCubes - IceAmount());
+            double sugarCubeFlavorDeviance = Math.Abs(player.recipe.amountOfSugarCubes - SugarAmount());
             //multiplier of 4 creates higher difference and determines difficulty
             player.pitcher.pitcherTasteScore = 100 - 4*(userInterface.AddFourNumbers(lemonFlavorDeviance, iceCubeFlavorDeviance, sugarCubeFlavorDeviance, priceDeviance));
             lemonadeCreationSelected = true; 
@@ -327,10 +323,8 @@ namespace Lemonade_Stand
             bool isUserInputValid = false;
             do
             {
-
                 Console.Write("How many lemons would you like to add: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
-
             } while (isUserInputValid == false);
             if (player.inventory.lemons.Count >= userInput)
             {
@@ -339,11 +333,10 @@ namespace Lemonade_Stand
             }
             else 
             {
-                Console.WriteLine("You don't have enough lemons!\n");
+                Console.WriteLine("You don't have enough lemons!\nLemonade will be created without any lemons :(");
                 Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
-                 
-                return userInput;
+                return userInput = 0;
             }
 
         }
@@ -365,11 +358,11 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough sugar cubes!\n");
+                Console.WriteLine("You don't have enough sugar cubes!\nLemonade will be created with no sugar :(");
                 Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
                 
-                return userInput;
+                return userInput = 0;
             }
 
         }
@@ -391,10 +384,10 @@ namespace Lemonade_Stand
             }
             else
             {
-                Console.WriteLine("You don't have enough ice cubes!\n");
+                Console.WriteLine("You don't have enough ice cubes!\nLemonade will be created without any ice :(");
                 Console.WriteLine("\nPress any key...");
                 Console.ReadKey();
-                return userInput;
+                return userInput = 0;
             }
 
         }
