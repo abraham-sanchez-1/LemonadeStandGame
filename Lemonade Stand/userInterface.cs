@@ -8,6 +8,14 @@ namespace Lemonade_Stand
 {
     public static class userInterface
     {
+
+        //SOLID PRINCIPLES IN EFFECT HERE - most if not all methods (SalesSummary method is probably a bit too large) in the userInterface 
+        //static class follow the single responsibility principle
+        //Easiest example of solid is our AddFourNumbers method, it does exactly what it states and nothing else.
+        //Sales Summary is only method below in userInterface that could use some simplification via separate methods
+        //Additionally, Liskov Substitution Principle can be found with the Item parent class and 4 inherited classes.
+        //Child can replace parent class without issue and new ingredients can be added without issue.
+
         public static int currentDay = 1;
 
         public static void playerMenu(bool lemonadeCreationSelected, int currentDay)
@@ -95,6 +103,7 @@ namespace Lemonade_Stand
             Console.WriteLine("*         Your Cups Inventory:   {0}      ", player.inventory.cups.Count);
             Console.WriteLine("*******************************************");
         }
+
         public static double AddFourNumbers(double firstNumber, double secondNumber, double thirdNumber, double fourthNumber)
         {
             double total = firstNumber + secondNumber + thirdNumber + fourthNumber;
