@@ -51,7 +51,7 @@ namespace Lemonade_Stand
         }
         public void GoalOfGame()
         {
-            Console.WriteLine("Welcome to 'Your Lemonade Stand,' the game! \n\nGoal of the game: Get to desired end date with at least $30 wallet!");
+            Console.WriteLine("Welcome to 'Your Lemonade Stand,' the game!\nGoal of the game: Get to desired end date with at least $30 wallet!");
         }
         public void playerMenu()
         {
@@ -339,32 +339,48 @@ namespace Lemonade_Stand
         }
         public bool ifIngredientAtZero()
         {
-            if (player.inventory.lemons.Count == 0 || player.inventory.sugarCubes.Count == 0 || player.inventory.iceCubes.Count == 0)
+            if (player.inventory.lemons.Count == 0)
+            { 
+                Console.WriteLine("You are out of Lemons. Please select option:\n1) Proceed as is\n2) Exit back to store");
+                Console.Write("Choose: ");
+            }
+            else if (player.inventory.sugarCubes.Count == 0)
             {
-                Console.WriteLine("One or more of your ingredients is empty, please select option\n1) Proceed as is\n2) Exit back to store");
-                double userInput;
-                bool isUserInputValid = false;
-                do
-                {
-                    isUserInputValid = double.TryParse(Console.ReadLine(), out userInput);
-
-                } while (isUserInputValid == false);
-                switch (userInput)
-                {
-                    case 1:
-                        return false;
-                    case 2:
-                        return true;
-                    default:
-                        Console.WriteLine("Input was invalid");
-                        return ifIngredientAtZero();
-                }
+                Console.WriteLine("You are out of Sugar Cubes. Please select option:\n1) Proceed as is\n2) Exit back to store");
+                Console.Write("Choose: ");
+            }
+            else if (player.inventory.iceCubes.Count == 0)
+            {
+                Console.WriteLine("You are out of Ice Cubes. Please select option:\n1) Proceed as is\n2) Exit back to store");
+                Console.Write("Choose: ");
+            }
+            else if (player.inventory.cups.Count < 25)
+            {
+                Console.WriteLine("You are low on Cups. Please select option:\n1) Proceed as is\n2) Exit back to store");
+                Console.Write("Choose: ");
             }
             else
             {
                 return false;
             }
-            
+            double userInput;
+            bool isUserInputValid = false;
+            do
+            {
+                isUserInputValid = double.TryParse(Console.ReadLine(), out userInput);
+
+            } while (isUserInputValid == false);
+            switch (userInput)
+            {
+                case 1:
+                    return false;
+                case 2:
+                    return true;
+                default:
+                    Console.WriteLine("Input was invalid");
+                    return ifIngredientAtZero();
+            }
+
         }
         
         public int LemonAmount()

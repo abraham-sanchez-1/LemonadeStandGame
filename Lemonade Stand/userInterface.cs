@@ -173,7 +173,7 @@ namespace Lemonade_Stand
             bool isUserInputValid = false;
             do
             {
-                Console.Write("How many days would you like to play (Selection has to be above 7): ");
+                Console.Write("Type your number of days: ");
                 isUserInputValid = int.TryParse(Console.ReadLine(), out userInput);
 
             } while (isUserInputValid == false);
